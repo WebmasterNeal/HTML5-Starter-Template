@@ -1,0 +1,61 @@
+
+
+/******************************* Responsive ********************************/
+@mixin columns-single-stack($column)
+{
+
+#specificity .columns[data-breakpoint-#{$column}="1"] > li
+{
+clear: both;
+margin-left: 0px;
+width: 100%;
+}
+
+#specificity .columns[data-breakpoint-#{$column}-margin="true"] > li { margin-top: $global-margin; }
+#specificity .columns[data-breakpoint-#{$column}-margin="true"] > li:first-child { margin-top: 0px; }
+
+}
+
+
+/******************************* Responsive Breakpoint 1 ********************************/
+@include responsive(canvasflexible)
+{
+
+@include columns-single-stack("1");
+
+}
+
+/******************************* Responsive Breakpoint 2 ********************************/
+@include responsive(mobilenav)
+{
+
+@include columns-single-stack("2");
+
+}
+
+
+/******************************* Responsive Breakpoint 3 ********************************/
+@include responsive(phablet)
+{
+
+@include columns-single-stack("3");
+
+}
+
+
+/******************************* Responsive Breakpoint 4 ********************************/
+@include responsive(mobilelandscape)
+{
+
+@include columns-single-stack("4");
+
+}
+
+
+/******************************* Responsive Breakpoint 5 ********************************/
+@include responsive(mobileportrait)
+{
+
+@include columns-single-stack("5");
+
+}

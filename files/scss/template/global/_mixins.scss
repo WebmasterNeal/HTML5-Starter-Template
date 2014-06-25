@@ -1,0 +1,60 @@
+/*
+http://thesassway.com/intermediate/responsive-web-design-in-sass-using-media-queries-in-sass-32
+http://css-tricks.com/naming-media-queries/
+
+Usage:
+
+@include responsive(canvasflexible)
+{
+	html { width: 100%; }
+}
+
+...
+
+@include responsive(canvasflexible)
+@include responsive(mobilenav)
+@include responsive(phablet)
+@include responsive(mobilelandscape)
+@include responsive(mobileportrait)
+
+*/
+@mixin responsive($media) {
+	@if $media == canvasflexible {		
+		@media (max-width: $global-breakpoint-1 + $global-mediaquery-modifier) { @content; } /* 940 + 50 */
+	}
+	@else if $media == mobilenav {		
+		@media (max-width: $global-breakpoint-2 + $global-mediaquery-modifier) { @content; } /* 770 + 50 */
+	}
+	@else if $media == phablet {		
+		@media (max-width: $global-breakpoint-3 + $global-mediaquery-modifier) { @content; } /* 600 + 50 */
+	}
+	@else if $media == mobilelandscape {		
+		@media (max-width: $global-breakpoint-4) { @content; } /* 480 */
+	}
+	@else if $media == mobileportrait {		
+		@media (max-width: $global-breakpoint-5) { @content; } /* 320 */
+	}
+	@else if $media == mobileportraitsmall {		
+		@media (max-width: $global-breakpoint-6) { @content; } /* 310 */
+	}
+}
+
+
+@mixin breakpoints($bp)
+{
+
+[data-hide-breakpoint="#{$bp}"] { display: none; }
+
+[data-unfloat-breakpoint="#{$bp}"]
+{
+float: none;
+clear: both;
+}
+
+[data-margin-breakpoint="#{$bp}"]
+{
+margin-top: $global-margin;
+margin-bottom: $global-margin;
+}
+
+}

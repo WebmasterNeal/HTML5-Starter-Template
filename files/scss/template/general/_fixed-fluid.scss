@@ -1,0 +1,18 @@
+
+
+/******************************* Responsive ********************************/
+@include responsive(phablet)
+{
+
+.fixed-fluid[data-breakpoint="3"] > .fluid-wrapper { float: none; }
+
+	.fixed-fluid[data-breakpoint="3"] > .fluid-wrapper > .fluid { margin-left: 0px; }
+
+.fixed-fluid[data-breakpoint="3"] > .fixed
+{
+float: none;
+margin-left: 0px;
+width: auto;
+}
+
+}

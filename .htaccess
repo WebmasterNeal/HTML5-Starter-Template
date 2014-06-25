@@ -1,0 +1,62 @@
+#AuthUserFile /Users/chriscampbell/Sites/www.site.com/web/.htpasswd
+#AuthUserFile /mnt/stor1-wc1-dfw1/370324/814811/www.site.com/web/.htpasswd
+#AuthType Basic
+#AuthName "Developer Access"
+#Require valid-user
+
+php_value upload_max_filesize 20M
+php_value post_max_size 22M
+php_value memory_limit 32M
+
+<ifModule mod_rewrite.c>
+RewriteEngine On
+
+#Non-www to www
+RewriteCond %{HTTP_HOST} ^site.com [NC]
+RewriteRule ^(.*)$ http://www.site.com/$1 [L,R=301]
+</ifModule>
+
+#Add mime type for cache manifest
+AddType text/cache-manifest .mf
+
+# Add mime type for fonts
+AddType application/octet-stream .otf .ttf
+AddType image/svg+xml svg
+AddType application/vnd.ms-fontobject .eot
+
+#Point 404 pages to specific page
+ErrorDocument 404 /pages/404.php
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/x-httpd-php
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/atom_xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE application/octet-stream
+</IfModule>
+
+<IfModule mod_expires.c>
+    ExpiresActive Off
+    ExpiresByType image/jpg "access plus 2 weeks"
+    ExpiresByType image/jpeg "access plus 2 weeks"
+    ExpiresByType image/png "access plus 2 weeks"	
+	ExpiresByType image/ico "access plus 2 weeks"
+	ExpiresByType image/icon "access plus 2 weeks"
+	ExpiresByType image/x-icon "access plus 2 weeks"	
+    ExpiresByType text/css "access plus 2 weeks"
+    ExpiresByType text/javascript "access plus 2 weeks"
+    ExpiresByType application/x-javascript "access plus 2 weeks"
+    ExpiresByType application/javascript "access plus 2 weeks"
+    ExpiresByType image/svg+xml "access plus 2 weeks"
+    ExpiresByType application/octet-stream "access plus 2 weeks"
+    ExpiresByType application/vnd.ms-fontobject "access plus 2 weeks"
+</IfModule>
+
+
+FileETag None

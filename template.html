@@ -1,0 +1,3189 @@
+<!DOCTYPE html> 
+<html lang="en" class="no-js no-document-ready no-window-load">
+<head>
+<title>Div Layout Template - By Neal Grosskopf</title>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!--[if IE]><meta http-equiv="imagetoolbar" content="no"><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui">
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="shortcut icon" sizes="196x196" href="196x196.png">
+<link rel="apple-touch-icon" href="60x60.png">
+<link rel="apple-touch-icon" sizes="76x76" href="76x76.png">
+<link rel="apple-touch-icon" sizes="120x120" href="120x120.png">
+<link rel="apple-touch-icon" sizes="152x152" href="152x152.png">
+
+<link rel="shortcut icon" type="image/ico" href="files/ico/favicon.ico">
+<!--<link rel="stylesheet" type="text/css" href="files/css/all.css" media="all">-->
+<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="files/css/ie8.css" media="all"><![endif]-->
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="files/css/ie7.css" media="all"><![endif]-->
+
+<style type="text/css">
+/*
+	I. Table Of Contents
+	II. CSS Diagnostics	
+	III. CSS Fonts
+	1. Reset
+	2. Tables
+	3. Headings
+	4. Anchors
+	5. Form Elements
+	6. General Classes
+	7. Template & Layout
+	8. Print
+	9. Touch
+	10. Responsive
+
+CSS References
+	http://www.w3.org/TR/css3-selectors/#selectors
+	http://en.wikipedia.org/wiki/Comparison_of_layout_engines_(CSS)
+	http://developer.mozilla.org/en/docs/Writing_Efficient_CSS
+	http://www.dustindiaz.com/css-shorthand/
+	http://www.tanfa.co.uk/css/examples/
+
+Browser Hacks
+	http://www.nealgrosskopf.com/tech/thread.asp?pid=20
+
+IE Bugs
+	http://css-class.com/articles/explorer/guillotine/
+	http://www.satzansatz.de/cssd/onhavinglayout.html
+	http://csscreator.com/node/472 - Fixes browser viewport resize and misaligned background images due to odd numbered width - !=IE6 - border-left: 1px solid transparent; 
+	http://jszen.blogspot.com/2005/04/ie-bold-text-opacity-problem.html
+
+@import url("stylesheet.css") screen, print;
+*/
+
+
+
+/****************************************************************
+ II. CSS Diagnostics - http://css-diagnostics.googlecode.com/files/css-diagnostics2.0.css
+****************************************************************/
+/* Remember to insert CSS Diagnostics here 
+@import url("http://css-diagnostics.googlecode.com/files/css-diagnostics2.0.css"); */
+@import url(http://weloveiconfonts.com/api/?family=fontawesome); /* @ .buttons */
+
+
+
+/****************************************************************
+ III. CSS Fonts - http://www.fontsquirrel.com/fontface/generator
+****************************************************************/
+
+
+
+/****************************************************************
+ 1. Reset  -  http://tantek.com/log/2004/undohtml.css  -  http://meyerweb.com/eric/tools/css/reset/
+****************************************************************/
+html, body, h1, h2, h3, h4, h5, h6, img, blockquote, q, table, thead, tbody, tfoot, caption, th, tr, td, a, form, input, textarea, fieldset, pre,
+article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video
+{ margin: 0px; padding: 0px; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section
+{ display: block; }
+
+address { font-style: normal; }
+abbr { border-bottom: 1px #000 dashed; cursor: help; }
+ins { text-decoration: none; }
+
+a img, img { border: none; }
+a { text-decoration: none; }
+img
+{
+display: block; /* http://developer.mozilla.org/en/docs/Images,_Tables,_and_Mysterious_Gaps */
+-ms-interpolation-mode: bicubic; /* http://css-tricks.com/ie-fix-bicubic-scaling-for-images/ */
+image-rendering: optimizeQuality; /* https://developer.mozilla.org/En/CSS/Image-rendering */
+}
+
+ul, ol, p, blockquote, code, fieldset, table, h2, h3, h4, h5, h6, .default-margin, .hr
+{
+margin-top: 12px;
+margin-bottom: 12px;
+}
+
+th, b, strong, h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+
+q {	quotes: none; }
+q:before, q:after { content: ""; }
+
+
+
+/****************************************************************
+ 2. Tables
+****************************************************************/
+table
+{
+border: 1px solid #ccc;
+border-collapse: collapse;
+border-spacing: 0px;
+width: 100%;
+}
+
+td, th
+{
+border: 1px solid #ccc;
+empty-cells: show;
+margin: 0px;
+padding: 6px;
+vertical-align: top;
+}
+
+th
+{
+background-color: #ccc;
+text-align: center;
+}
+
+caption
+{
+background-color: #000;
+color: #fff;
+font-weight: bold;
+padding: 6px;
+}
+
+/* table tr:nth-child(even) table tr:nth-child(odd) */
+.odd td { background-color: #fff; }
+.even td { background-color: #eee; }
+
+
+
+/****************************************************************
+ 3. Headings
+****************************************************************/
+.content h2,
+.content h3,
+.content h4
+{ line-height: 1.2; }
+
+.content h2
+{
+color: inherit;
+font-size: 20px;
+margin-top: 0px;
+}
+
+.content h3
+{
+color: inherit;
+font-size: 16px;
+margin: 0px;
+}
+
+.content h4
+{
+color: inherit;
+}
+
+
+
+/****************************************************************
+ 4. Anchors - :link - :visited - :hover - :focus - :active
+****************************************************************/
+a
+{
+color: #000;
+/* http://blog.kenneth.io/blog/2012/03/04/word-wrapping-hypernation-using-css/ */
+-ms-word-break: break-all;
+word-break: break-all;
+word-break: break-word;
+}
+
+.content a { text-decoration: underline; }
+
+/*
+a[href^="http://"], a[target="_blank"] { background: url(files/images/template/) no-repeat right top; padding-right: inherit; }
+a[href^="mailto:"] { background: url(files/images/template/) no-repeat right top; padding-right: inherit; }
+a[href$=".pdf"] { background: url(files/images/template/) no-repeat right top; padding-right: inherit; }
+*/
+
+
+/****************************************************************
+ 5. Form Elements - http://www.456bereastreet.com/archive/200410/styling_even_more_form_controls/
+****************************************************************/
+fieldset
+{
+border: 1px solid #ccc;
+padding: 10px;
+}
+
+legend { font-weight: bold; }
+
+label { font-weight: bold; }
+label:after { content: ":" }
+
+input + label { font-weight: normal; padding: 0px 5px 0px 3px; }
+input + label:after { content: ""; }
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="number"]
+{
+border: 1px solid #ccc;
+padding: 4px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+/* @include appearance(none); */
+width: 150px;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus
+{ border: 1px solid #aaa; }
+
+/* Removes mac outline */
+select, textarea, input, button { outline-width: 0px; }
+
+/* http://css-tricks.com/webkit-html5-search-inputs/ */
+input[type="search"]
+{
+-webkit-appearance: textfield;
+-webkit-box-sizing: content-box;
+}
+
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button
+{ display: none; }
+
+/* http://stackoverflow.com/questions/2610497/change-an-inputs-html5-placeholder-color-with-css */
+input::-webkit-input-placeholder { color: inherit; }
+input::-moz-placeholder { color: inherit; }
+
+textarea
+{
+height: 150px;
+width: 100%;
+max-width: 300px;
+line-height: 2;
+overflow-y: auto;
+resize: both;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+box-sizing: border-box;
+/* @include box-sizing(border-box); */
+}
+
+button
+{
+cursor: pointer;
+line-height: 1;
+overflow: visible;
+padding: 4px 5px;
+width: auto; /* http://www.viget.com/inspire/comments/styling-the-button-element-in-internet-explorer/ */
+}
+
+button.reset
+{
+border: 0px;
+background-color: transparent;
+padding: 0px;
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+/* @include appearance(none); */
+}
+
+input.full-width,
+textarea.full-width,
+select.full-width
+{
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+box-sizing: border-box;
+/* @include box-sizing(border-box); */
+width: 100%;
+max-width: 100%;
+}
+
+[placeholder] { text-indent: 0%; }
+
+[placeholder]:focus::-webkit-input-placeholder
+{
+text-indent: -100%;
+-webkit-transition: text-indent .5s ease;
+transition: text-indent .5s ease;
+}
+
+[placeholder]:focus::-moz-placeholder
+{
+color: rgba(0,0,0,0);
+-moz-transition: color .5s ease;
+transition: color .5s ease;
+}
+
+/******************************* .form ********************************/
+.form, .form ul
+{
+list-style-type: none;
+margin: 0px;
+padding: 0px;
+}
+
+.form > li
+{
+clear: both;
+margin-bottom: 6px;
+overflow: hidden;
+}
+
+.form > li label:first-child
+{
+float: left;
+line-height: 1.5;
+text-align: left;
+}
+
+body .form > li label.full-line
+{
+display: block;
+float: none;
+margin-bottom: 6px;
+width: 100%;
+}
+
+.form > li .note { font-style: italic; }
+
+.form > li.label-above label { float: none; }
+
+.form > li.required label:before
+{
+color: #900;
+content: "*";
+padding-right: 2px;
+}
+
+.buttons { padding-top: 5px; }
+
+/* 100px is a constant between these */
+.form > li label:first-child { width: 100px; }
+
+.buttons,
+.no-label,
+.form ul,
+.form > li .note,
+.form > li label.full-line + * 	{ margin-left: 100px; }
+
+
+
+/****************************************************************
+ 6. General Classes
+****************************************************************/
+.clear { clear: both; }
+.align-left { text-align: left; }
+.align-center { text-align: center; }
+.align-right { text-align: right; }
+.inline { display: inline; }
+.block { display: block; }
+.hide { display: none; }
+.visible { display: block; }
+.overflow { overflow: hidden; }
+.uppercase { text-transform: uppercase; }
+.content-left { float: left; }
+.content-right { float: right; }
+.cursor-waiting { cursor: wait; }
+.cursor-waiting { cursor: wait; }
+.nowrap { white-space: nowrap; }
+.testing .example-1 { background-color: #eee; }
+.testing .example-2 { background-color: #ccc; }
+.testing .example-3 { background-color: #aaa; }
+.full-width-image-children img { max-width: 100%; }
+
+/*
+.font-color-darker { color: $global-font-color-darker; }
+.font-color-dark { color: $global-font-color-dark; }
+.font-color-medium { color: $global-font-color-medium; }
+.font-color-light { color: $global-font-color-light; }
+.font-color-faint { color: $global-font-color-faint; }
+.font-color-white { color: #fff; }
+
+.font-family-1 { font-family: $global-font-family; }
+.font-family-2 { font-family: $global-font-family-2; }
+*/
+
+.word-break
+{
+-ms-word-break: break-all;
+word-break: break-all;
+word-break: break-word;
+}
+
+.ellipsis
+{
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+
+.promote-layer
+{
+/* This may promote the layer to a composited layer. Replace with will-change when available */
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
+}
+
+.unselectable
+{
+-moz-user-select: none; 
+-webkit-user-select: none; 
+user-select: none;
+}
+
+.absolute-center
+{
+position: absolute;
+left: 50%;
+top: 50%;
+-moz-transform: translateX(-50%) translateY(-50%);
+-ms-transform: translateX(-50%) translateY(-50%);
+-o-transform: translateX(-50%) translateY(-50%);
+-webkit-transform: translateX(-50%) translateY(-50%);
+transform: translateX(-50%) translateY(-50%);
+/* @include transform(translateX(-50%) translateY(-50%)); */
+}
+
+
+/******************************* Ratios - http://www.mademyday.de/css-height-equals-width-with-pure-css.html ********************************/
+.ratio { position: relative; }
+
+	.ratio:before
+	{
+	content: "";
+	display: block;
+	}
+
+	.ratio.ratio2_1:before { padding-top: 50%; }
+	.ratio.ratio1_2:before { padding-top: 200%; }
+	.ratio.ratio4_3:before { padding-top: 75%; }
+	.ratio.ratio16_9:before { padding-top: 56.25%; }
+
+
+/******************************* Loading *******************************
+http://www.ajaxload.info/ */
+#specificity .loading
+{
+background-image: url("data:image/gif;base64,R0lGODlhEAAQAPQAAP%2F%2F%2FwAAAPDw8IqKiuDg4EZGRnp6egAAAFhYWCQkJKysrL6%2BvhQUFJycnAQEBDY2NmhoaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH%2FC05FVFNDQVBFMi4wAwEAAAAh%2FhpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh%2BQQJCgAAACwAAAAAEAAQAAAFdyAgAgIJIeWoAkRCCMdBkKtIHIngyMKsErPBYbADpkSCwhDmQCBethRB6Vj4kFCkQPG4IlWDgrNRIwnO4UKBXDufzQvDMaoSDBgFb886MiQadgNABAokfCwzBA8LCg0Egl8jAggGAA1kBIA1BAYzlyILczULC2UhACH5BAkKAAAALAAAAAAQABAAAAV2ICACAmlAZTmOREEIyUEQjLKKxPHADhEvqxlgcGgkGI1DYSVAIAWMx%2BlwSKkICJ0QsHi9RgKBwnVTiRQQgwF4I4UFDQQEwi6%2F3YSGWRRmjhEETAJfIgMFCnAKM0KDV4EEEAQLiF18TAYNXDaSe3x6mjidN1s3IQAh%2BQQJCgAAACwAAAAAEAAQAAAFeCAgAgLZDGU5jgRECEUiCI%2ByioSDwDJyLKsXoHFQxBSHAoAAFBhqtMJg8DgQBgfrEsJAEAg4YhZIEiwgKtHiMBgtpg3wbUZXGO7kOb1MUKRFMysCChAoggJCIg0GC2aNe4gqQldfL4l%2FAg1AXySJgn5LcoE3QXI3IQAh%2BQQJCgAAACwAAAAAEAAQAAAFdiAgAgLZNGU5joQhCEjxIssqEo8bC9BRjy9Ag7GILQ4QEoE0gBAEBcOpcBA0DoxSK%2Fe8LRIHn%2Bi1cK0IyKdg0VAoljYIg%2BGgnRrwVS%2F8IAkICyosBIQpBAMoKy9dImxPhS%2BGKkFrkX%2BTigtLlIyKXUF%2BNjagNiEAIfkECQoAAAAsAAAAABAAEAAABWwgIAICaRhlOY4EIgjH8R7LKhKHGwsMvb4AAy3WODBIBBKCsYA9TjuhDNDKEVSERezQEL0WrhXucRUQGuik7bFlngzqVW9LMl9XWvLdjFaJtDFqZ1cEZUB0dUgvL3dgP4WJZn4jkomWNpSTIyEAIfkECQoAAAAsAAAAABAAEAAABX4gIAICuSxlOY6CIgiD8RrEKgqGOwxwUrMlAoSwIzAGpJpgoSDAGifDY5kopBYDlEpAQBwevxfBtRIUGi8xwWkDNBCIwmC9Vq0aiQQDQuK%2BVgQPDXV9hCJjBwcFYU5pLwwHXQcMKSmNLQcIAExlbH8JBwttaX0ABAcNbWVbKyEAIfkECQoAAAAsAAAAABAAEAAABXkgIAICSRBlOY7CIghN8zbEKsKoIjdFzZaEgUBHKChMJtRwcWpAWoWnifm6ESAMhO8lQK0EEAV3rFopIBCEcGwDKAqPh4HUrY4ICHH1dSoTFgcHUiZjBhAJB2AHDykpKAwHAwdzf19KkASIPl9cDgcnDkdtNwiMJCshACH5BAkKAAAALAAAAAAQABAAAAV3ICACAkkQZTmOAiosiyAoxCq%2BKPxCNVsSMRgBsiClWrLTSWFoIQZHl6pleBh6suxKMIhlvzbAwkBWfFWrBQTxNLq2RG2yhSUkDs2b63AYDAoJXAcFRwADeAkJDX0AQCsEfAQMDAIPBz0rCgcxky0JRWE1AmwpKyEAIfkECQoAAAAsAAAAABAAEAAABXkgIAICKZzkqJ4nQZxLqZKv4NqNLKK2%2FQ4Ek4lFXChsg5ypJjs1II3gEDUSRInEGYAw6B6zM4JhrDAtEosVkLUtHA7RHaHAGJQEjsODcEg0FBAFVgkQJQ1pAwcDDw8KcFtSInwJAowCCA6RIwqZAgkPNgVpWndjdyohACH5BAkKAAAALAAAAAAQABAAAAV5ICACAimc5KieLEuUKvm2xAKLqDCfC2GaO9eL0LABWTiBYmA06W6kHgvCqEJiAIJiu3gcvgUsscHUERm%2BkaCxyxa%2BzRPk0SgJEgfIvbAdIAQLCAYlCj4DBw0IBQsMCjIqBAcPAooCBg9pKgsJLwUFOhCZKyQDA3YqIQAh%2BQQJCgAAACwAAAAAEAAQAAAFdSAgAgIpnOSonmxbqiThCrJKEHFbo8JxDDOZYFFb%2BA41E4H4OhkOipXwBElYITDAckFEOBgMQ3arkMkUBdxIUGZpEb7kaQBRlASPg0FQQHAbEEMGDSVEAA1QBhAED1E0NgwFAooCDWljaQIQCE5qMHcNhCkjIQAh%2BQQJCgAAACwAAAAAEAAQAAAFeSAgAgIpnOSoLgxxvqgKLEcCC65KEAByKK8cSpA4DAiHQ%2FDkKhGKh4ZCtCyZGo6F6iYYPAqFgYy02xkSaLEMV34tELyRYNEsCQyHlvWkGCzsPgMCEAY7Cg04Uk48LAsDhRA8MVQPEF0GAgqYYwSRlycNcWskCkApIyEAOwAAAAAAAAAAAA%3D%3D");
+background-position: center center;
+background-repeat: no-repeat;
+min-height: 66px;
+}
+
+
+/******************************* Lists ********************************/
+dl.reset,
+dl.reset > dd
+{ margin: 0px; }
+
+.collapse,
+.columns,
+ul.reset,
+ol.reset
+{
+list-style-type: none;
+margin: 0px;
+padding: 0px;
+}
+
+.collapse,
+.columns
+{ overflow: hidden; }
+
+.columns ul:not(.columns):not(.collapse):not(.reset) { list-style-type: disc; }
+
+.collapse > li { float: left; }
+
+
+/******************************* Columns ********************************/
+.columns > li
+{
+float: left;
+margin-left: 4%;
+}
+
+.columns.columns-3 > li { margin-left: 3%; }
+
+.columns > li.column-row
+{
+clear: left;
+margin-left: 0px;
+}
+
+.columns-2 > li { width: 48%; }
+.columns-3 > li { width: 31.333%; }
+.columns-4 > li { width: 22%; }
+.columns-2.columns-75-25 > li { width: 23%; }
+.columns-2.columns-75-25 > li.column-row { width: 73%; }
+.columns-2.columns-25-75 > li { width: 73%; }
+.columns-2.columns-25-75 > li.column-row { width: 23%; }
+
+.columns > li.column-row
+{
+clear: left;
+margin-left: 0px;
+}
+
+
+/******************************* Messages *******************************
+Converters -
+http://web.forret.com/tools/color.asp
+http://www.workwithcolor.com/doughnut-color-picker-01.htm
+*/
+.success, .notice, .error
+{
+border: 1px solid;
+padding: 3px 5px;
+}
+
+.success
+{
+background-color: #c7ffc7;
+background-color: hsl(120,100%,89%);
+border-color: #a2c3a2;
+border-color: hsl(120,21%,70%);
+}
+
+.notice 
+{
+background-color: #ffffc7;
+background-color: hsl(60,100%,89%);
+border-color: #c3c3a2;
+border-color: hsl(60,21%,70%);
+}
+
+.error
+{
+background-color: #ffc7c7;
+background-color: hsl(0,100%,89%);
+border-color: #c3a2a2;
+border-color: hsl(0,21%,70%);
+}
+
+
+/******************************* Horizonal Rule ********************************/
+.hr
+{
+border-bottom: 1px solid #ccc;
+height: 1px;
+text-align: center;
+width: 100%;
+}
+.hr hr { display: none; }
+
+
+/******************************* Quotes ********************************/
+blockquote p { padding-left: 40px; }
+
+blockquote p:before
+{
+color: #999;
+content: '\201C'; /* http://monc.se/kitchen/129/rendering-quotes-with-css */
+font-family: Helvetica, Arial, sans-serif;
+font-size: 72px;
+font-weight: bold;
+line-height: 0px;
+margin-left: -40px;
+margin-right: 5px;
+vertical-align: bottom;
+}
+
+
+/******************************* Margins ********************************/
+/* None */
+.margin-top-none { margin-top: 0px; }
+
+.margin-bottom-none { margin-bottom: 0px; }
+.margin-bottom-none + * { margin-top: 0px; }
+
+.margin-left-none { margin-left: 0px; }
+.margin-right-none { margin-right: 0px; }
+
+.margin-vertical-none
+{
+margin-top: 0px;
+margin-bottom: 0px;
+}
+
+.margin-vertical-none + * { margin-top: 0px; }
+
+/* Half 1x - ($global-margin / 2) */
+.margin-top-half { margin-top: 6px; }
+
+.margin-bottom-half { margin-bottom: 6px; }
+.margin-bottom-half + * { margin-top: 0px; }
+
+.margin-left-half { margin-left: 6px; }
+.margin-right-half { margin-right: 6px; }
+
+/* 1x - $global-margin */
+.margin-top-1x { margin-top: 12px; }
+
+.margin-bottom-1x { margin-bottom: 12px; }
+.margin-bottom-1x + * { margin-top: 0px; }
+
+.margin-left-1x { margin-left: 12px; }
+.margin-right-1x { margin-right: 12px; }
+
+/* 2x - ($global-margin * 2) */
+.margin-top-2x { margin-top: 24px; }
+
+.margin-bottom-2x { margin-bottom: 24px; }
+.margin-bottom-2x + * { margin-top: 0px; }
+
+.margin-left-2x { margin-left: 24px; }
+.margin-right-2x { margin-right: 24px; }
+
+/* 3x - ($global-margin * 3) */
+.margin-top-3x { margin-top: 36px; }
+
+.margin-bottom-3x { margin-bottom: 36px; }
+.margin-bottom-3x + * { margin-top: 0px; }
+
+.margin-left-3x { margin-left: 36px; }
+.margin-right-3x { margin-right: 36px; }
+
+
+/******************************* Content Padding ********************************/
+.padding-1x-all { padding: 5px; }
+.padding-1x.top { padding-top: 5px; }
+.padding-1x.bottom { padding-bottom: 5px; }
+.padding-1x.left { padding-left: 5px; }
+.padding-1x.right { padding-right: 5px; }
+
+.padding-2x-all { padding: 10px; }
+.padding-2x.top { padding-top: 10px; }
+.padding-2x.bottom { padding-bottom: 10px; }
+.padding-2x.left { padding-left: 10px; }
+.padding-2x.right { padding-right: 10px; }
+
+.padding-3x-all { padding: 15px; }
+.padding-3x.top { padding-top: 15px; }
+.padding-3x.bottom { padding-bottom: 15px; }
+.padding-3x.left { padding-left: 15px; }
+.padding-3x.right { padding-right: 15px; }
+
+.padding-4x-all { padding: 20px; }
+.padding-4x.top { padding-top: 20px; }
+.padding-4x.bottom { padding-bottom: 20px; }
+.padding-4x.left { padding-left: 20px; }
+.padding-4x.right { padding-right: 20px; }
+
+
+/******************************* Pseudo Elements ********************************/
+::-moz-selection
+{
+background-color: #000;
+color: #fff;
+}
+
+::selection
+{
+background-color: #000;
+color: #fff;
+}
+
+:target { outline: 1px solid #000; }
+body :target, body [fragmention] { background-color: yellow; color: black; }
+
+
+/******************************* Fluid-Flex Columns Layouts ********************************/
+/* Fixed/Fluid */
+.fixed-fluid { overflow: hidden; }
+
+	.fixed-fluid > .fluid-wrapper
+	{
+	float: left;
+	width: 100%;
+	}
+
+		.fixed-fluid > .fluid-wrapper > .fluid { margin-left: 200px; }
+
+	.fixed-fluid > .fixed
+	{
+	float: left;
+	margin-left: -100%;
+	width: 200px;
+	}
+
+/* Fluid/Fixed */
+.fluid-fixed { overflow: hidden; }
+
+	.fluid-fixed > .fluid-wrapper
+	{
+	float: left;
+	width: 100%;
+	}
+
+		.fluid-fixed > .fluid-wrapper > .fluid { margin-right: 200px; }
+
+	.fluid-fixed > .fixed
+	{
+	float: left;
+	width: 200px;
+	margin-left: -200px;
+	}
+
+/* Fixed/Fluid/Fixed */
+.fixed-fluid-fixed { overflow: hidden; }
+
+	.fixed-fluid-fixed > .fluid-wrapper
+	{
+	float: left;
+	width: 100%;
+	}
+
+		.fixed-fluid-fixed > .fluid-wrapper > .fluid { margin: 0px 200px 0px 300px; }
+
+	.fixed-fluid-fixed > .fixed-left
+	{
+	float: left;
+	margin-left: -100%;
+	width: 300px;
+	}
+
+	.fixed-fluid-fixed > .fixed-right
+	{
+	float: left;
+	margin-left: -200px;
+	width: 200px;
+	}
+
+
+/******************************* Clear Fix *******************************
+http://css-tricks.com/snippets/css/clear-fix/ - http://www.satzansatz.de/cssd/onhavinglayout.html
+*/
+.group:before,
+.group:after
+{
+content: "";
+display: table;
+} 
+.group:after { clear: both; }
+.group { min-height: 0px; }
+
+
+/******************************* Don't Preload Youtube Videos ********************************/
+.enable-video-container
+{
+position: relative;
+z-index: 1;
+}
+
+	.enable-video-container .enable-video
+	{
+	background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFIAAAA5CAMAAACSwYwwAAAAeFBMVEUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9PT0%2FPz9AQEA%2BPj54eHiysrKzs7OxsbG0tLSwsLDo6OiZqIraAAAAKHRSTlMAAwUGSUpLTE1OUlN8hZaam8LExsnKzc7a2%2BDh5uvs7Ozx9%2Ff39%2Ff9uDxV8AAAAONJREFUeF7t2EkOgkAURdFP2YCoiA12lKigsv8daiDxJY5MuMy4CzipASF535rcLNnlvlOndRI5%2BzbeeqTtxNqChcdaBA0pkTDtU%2BjRQjO3Z8mDs9jDzW1Fk6llNJnZmSZz83gD%2BdtAPq84WddCMfKDFjApFCPbqgIkhWKkKguQFMqRQm8gKZQjhV4wUt1p8kW%2F8iEQIAVyZCkQIAUSpECI1AeOkiX5vxQIkpVAhhQIkP81kAN55BfFhiazPtYZvyH5pTsyi1gy6udqYMGSE5eBtU2pC0xo31ycdr0T5bs0dg32BmruAIVLxNKtAAAAAElFTkSuQmCC") no-repeat center center;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 100%;
+	width: 100%;
+	z-index: 1;
+	}
+
+	.enable-video-container img { width: 100%; }
+
+
+/******************************* Responsive Tabs ********************************/
+/* Shared Borders */
+.accordion-group.default-theme .tabs.reset,
+.accordion-group.default-theme .tabs > li,
+.accordion-group.default-theme .canvasflexible .accordion,
+.accordion-group.default-theme .accordion > dt,
+.accordion-group.default-theme .accordion > dd
+{
+border-style: solid;
+border-color: #ccc;
+}
+
+/* Seemless Tab Color */
+.accordion-group.default-theme .tabs > li.selected,
+.accordion-group.default-theme .accordion > dd
+{ background-color: #fff; }
+
+
+/* .accordion-group { }	*/
+
+	/* .tabs { } */
+
+	.accordion-group.default-theme .tabs { border-width: 0px 0px 1px 0px; }
+
+		.accordion-group.default-theme .tabs > li
+		{
+		background-color: #eee;
+		border-width: 1px 1px 0px 1px;
+		margin-right: 5px;
+		}
+
+			.accordion-group.default-theme .tabs > li > a
+			{
+			line-height: 1;
+			padding: 10px;
+			}
+
+	/* .accordion { } */
+
+		.accordion-group.default-theme .accordion > dt
+		{
+		background-color: #eee;
+		border-width: 1px;
+		}
+
+		.accordion-group.default-theme .accordion > dt.selected { background-color: #ddd; }
+
+			.accordion-group.default-theme .accordion > dt > a
+			{
+			color: #000;
+			padding-left: 25px; /* border-width x 2 + padding-left (15) */
+			padding-top: 5px;
+			padding-bottom: 5px;
+			position: relative;
+			}
+
+			.accordion-group.default-theme .accordion > dt > a:before
+			{
+			content: "";
+			border-color: transparent transparent transparent #666;
+			border-style: solid;
+			border-width: 5px;
+			display: block;
+			position: absolute;
+			left: 10px;
+			top: 50%;
+			margin-top: -5px; /* -border-width */
+			}
+
+			.accordion-group.default-theme .accordion > dt.selected > a:before
+			{
+			border-color: #666 transparent transparent transparent;
+			margin-top: -2px;
+			}
+
+		.accordion-group.default-theme .accordion > dd { padding: 0px 15px; }
+
+		.accordion-group.default-theme .accordion > dd.selected	{ border-width: 0px 1px 1px 1px; }
+
+/* .accordion-group { }	*/
+
+	.tabs.reset { overflow: inherit; }
+
+		.tabs > li { float: left; }
+
+		.tabs > li.selected
+		{
+		margin-bottom: -1px;
+		padding-bottom: 1px;
+		}
+
+			.tabs > li > a
+			{
+			display: block;
+			text-decoration: none;
+			}
+
+	/* .accordion { } */
+
+		.accordion > dt
+		{
+		display: none;
+		margin-top: 5px;
+		}
+
+		.accordion > dt:first-child { margin-top: 0px; }
+
+			.accordion > dt > a
+			{
+			display: block;
+			text-decoration: none;
+			}
+
+		.accordion > dd
+		{
+		border-width: 0px;
+		max-height: 0px;
+		overflow: hidden;
+		}
+
+		.no-csstransitions .accordion > dd { display: none; }
+
+		.accordion > dd.selected
+		{
+		max-height: 9999px;
+		-webkit-transition: max-height 5s;
+		transition: max-height 5s;
+		border-top: 1px solid transparent;
+		border-bottom: 1px solid transparent;
+		}
+
+		.no-csstransitions .accordion > dd.selected { display: block; }
+
+		/* Responsive Tabs */
+		.canvasflexible .tabs { display: none; }
+		.canvasflexible .accordion > dt { display: block; }
+
+
+/******************************* Buttons ********************************/
+/*********** .button ***********/
+.button
+{
+display: inline-block;
+font-size: 16px; /* $button-font-size */
+font-weight: bold;
+line-height: 1;
+outline: 0;
+overflow: hidden;
+padding: 20px 20px; /* $button-padding */
+position: relative;
+text-decoration: none !important;
+transition: all .2s linear;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.button:before, .button:after { font-family: 'FontAwesome', sans-serif; }
+
+button.button
+{
+background-color: transparent;
+border-width: 0px;
+margin: 0px;
+}
+
+/*********** [data-theme=black] ***********/
+.button[data-theme=black]
+{
+background-color: #333;
+color: #fff;
+}
+
+.button[data-theme=black]:hover { background-color: #666; }
+
+/* [tabindex=0] is needed for Webkit to work with :focus - http://stackoverflow.com/questions/5832436/css-focus-not-working-in-safari-and-chrome */
+.button[data-theme=black]:focus { background-color: #888; }
+
+
+
+/*********** [data-theme=red] ***********/
+.button[data-theme=red]
+{
+background-color: hsla(360,50%,40%,1);
+color: #fff;
+}
+
+.button[data-theme=red]:hover { background-color: hsla(360,75%,40%,1); }
+.button[data-theme=red]:focus { background-color: hsla(360,100%,40%,1); }
+
+
+
+/*********** [data-icon-position] ***********/
+.button[data-icon-position=left] { padding-left: calc(20px + 20px + 22px); } /* $button-padding */  /* $button-icon-size */
+.button[data-icon-position=right] { padding-right: calc(20px + 20px + 22px); } /* $button-padding */  /* $button-icon-size */
+
+.button[data-icon-position=alone]
+{
+height: 16px; /* $button-font-size */
+width: 22px; /* $button-icon-size */
+padding-left: 20px; /* $button-padding */
+padding-right: 20px; /* $button-padding */
+}
+
+.button[data-icon-position]:before { content: "\f082"; }
+
+.button[data-icon-position]:before,
+.button[data-icon-position]:after
+{
+display: inline-block;
+position: absolute;
+z-index: 1;
+
+font-size: 22px; /* $button-icon-size */
+margin-top: calc(22px / 2 * -1); /* $button-padding */ /* Vertical center, could use translateY() but would have to repear in every transform */
+top: 50%;
+}
+
+.button[data-icon-position=left]:before,
+.button[data-icon-position=left]:after,
+.button[data-icon-position=alone]:before,
+.button[data-icon-position=alone]:after
+{ left: 20px; } /* $button-padding */
+
+.button[data-icon-position=right]:before,
+.button[data-icon-position=right]:after
+{ right: 20px; } /* $button-padding */
+
+
+
+/*********** [data-icon-effect] ***********/
+.button[data-icon-effect]
+{
+-webkit-transform: translate3d(0,0,0);
+transform: translate3d(0,0,0); /* Fixes bug in Firefox */
+}
+
+
+
+/*********** [data-icon-effect=jump] ***********/
+.button[data-icon-effect=jump]:focus:before,
+.button[data-icon-effect=jump]:focus:after
+{
+-webkit-animation: icon-jump .3s linear 1;
+animation: icon-jump .3s linear 1;
+}
+
+@-webkit-keyframes icon-jump {
+	30%, 80% {
+	opacity: 0;
+	-webkit-transform: scale(2);
+	}
+	100% {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	}
+}
+
+@keyframes icon-jump {
+	30%, 80% {
+	opacity: 0;
+	transform: scale(2);
+	}
+	100% {
+	opacity: 1;
+	transform: scale(1);
+	}
+}
+
+
+
+/*********** [data-icon-effect=drop-fade] ***********/
+.button[data-icon-effect=drop-fade]:after,
+.button[data-icon-effect=drop-stay]:after
+{
+content: "\f082";
+color: #ffe44d;
+opacity: 0;
+-webkit-transform: scale(4);
+transform: scale(4);
+z-index: 2;
+}
+
+.button[data-icon-effect=drop-fade]:focus:after
+{
+-webkit-animation: icon-drop-fade 1s;
+animation: icon-drop-fade 1s;
+}
+
+@-webkit-keyframes icon-drop-fade {
+	30%, 80% {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	}
+	100% {
+	opacity: 0;
+	-webkit-transform: scale(1);
+	}
+}
+
+@keyframes icon-drop-fade {
+	30%, 80% {
+	opacity: 1;
+	transform: scale(1);
+	}
+	100% {
+	opacity: 0;
+	transform: scale(1); /* Fixes bug in Firefox */
+	}
+}
+
+
+
+/*********** [data-icon-effect=drop-stay] ***********/
+.button[data-icon-effect=drop-stay]:after
+{
+-webkit-transition: all .3s;
+transition: all .3s;
+}
+
+.button[data-icon-effect=drop-stay].active:after
+{
+opacity: 1;
+-webkit-transform: scale(1);
+transform: scale(1);
+}
+
+
+
+/*********** [data-icon-effect=jump] ***********/
+.button[data-icon-effect=raise-fade]:after
+{
+content: "\f082";
+color: #ffe44d;
+opacity: 0;
+-webkit-transform: scale(0);
+transform: scale(0);
+z-index: 2;
+}
+
+.button[data-icon-effect=raise-fade]:focus:after
+{
+-webkit-animation: icon-raise-fade .3s linear 1;
+animation: icon-raise-fade .3s linear 1;
+}
+
+@-webkit-keyframes icon-raise-fade {
+	50%{
+	opacity: 1;
+	-webkit-transform: scale(1);
+	}
+	100% {
+	opacity: 0;
+	-webkit-transform: scale(2.5);
+	}
+}
+
+@keyframes icon-raise-fade {
+	50% {
+	opacity: 1;
+	transform: scale(1);
+	}
+	100% {
+	opacity: 0;
+	transform: scale(2.5);
+	}
+}
+
+
+
+/*********** [data-icon-effect=shake] ***********/
+.button[data-icon-effect=shake]:focus:before
+{
+-webkit-animation: icon-shake .8s;
+animation: icon-shake .8s;
+}
+
+@-webkit-keyframes icon-shake {
+	0%, 100% { -webkit-transform: translateX(0); }
+	10%, 30%, 50%, 70%, 90% { -webkit-transform: translateX(-10px); }
+	20%, 40%, 60%, 80% { -webkit-transform: translateX(10px); }
+}
+
+@keyframes icon-shake {
+	0%, 100% { transform: translateX(0); }
+	10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+	20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+
+
+
+/*********** [data-icon-effect=spin] ***********/
+.button[data-icon-effect=spin-stay].active:before
+{
+content: "\f021";
+-webkit-animation: icon-spin .4s linear infinite;
+animation: icon-spin .4s linear infinite;
+}
+
+@-webkit-keyframes icon-spin {
+	0% { -webkit-transform: rotate(0deg); }
+	100% { -webkit-transform: rotate(360deg); }
+}
+	
+@keyframes icon-spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+
+
+
+/****************************************************************
+ 7. Template & Layout
+****************************************************************/
+html
+{
+background-color: #000;
+overflow-y: scroll; /* http://webdevel.blogspot.com/2007/05/controlling-browser-scrollbars.html */
+text-rendering: optimizelegibility;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+body, select, textarea, input, button
+{
+color: #555;
+font-family: Helvetica, Arial, sans-serif;
+font-size: 12px;
+}
+
+body
+{
+text-align: left;
+vertical-align: baseline;
+}
+
+.container { }
+
+.container-inside
+{
+margin: 0px auto;
+position: relative;
+width: 960px;
+}
+
+
+/******************************* Header ********************************/
+.header { background-color: #ccc; }
+
+	.header .container-inside { min-height: 150px; }
+
+		.header h1 a
+		{
+		/*background: url(files/images/template/) no-repeat left top;*/
+		display: block;
+		height: auto;
+		width: auto;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		/* Was in SPAN
+		text-indent: 100%;
+		white-space: nowrap;
+		overflow: hidden; */
+		}
+
+
+/******************************* Navigation ********************************/
+.nav
+{
+background-color: #ddd;
+clear: both;
+}
+
+	.nav .container-inside { }
+
+	.nav .nav-view { display: none; }
+
+	.nav ul
+	{
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	display: block;
+	}
+
+		.nav .nav-list > li
+		{
+		display: block;
+		float: left;
+		width: 20%;
+		position: relative;
+		}
+
+		.nav .hide { display: none; }
+
+		.nav .nav-list > li.selected,
+		.nav .nav-list > li:hover
+		{
+		background-color: #777;
+		}
+
+			.nav .nav-list > li > a
+			{
+			color: #777;
+			display: block;
+			font-size: 14px;
+			line-height: 1.1;
+			font-weight: bold;
+			padding: 12px 0px;
+			text-align: center;
+			}
+
+			.nav .nav-list > li.selected a,
+			.nav .nav-list > li:hover a
+			{ color: #fff; }
+
+				.nav .nav-list ul
+				{
+				background-color: #777;
+				display: none;
+				position: absolute;
+				left: 0px;
+				top: 100%;
+				width: 100%;
+				z-index: 1;
+				}
+
+				.nav .nav-list ul.rtl
+				{
+				left: auto;
+				right: 0px;	
+				}
+
+				.nav .nav-list > li:hover ul { display: block; }
+
+					.nav .nav-list ul li { }
+
+						.nav .nav-list ul li a
+						{
+						border-top: 1px solid #555;
+						border-bottom: 1px solid #999;
+						color: #fff;
+						display: block;
+						font-size: 13px;
+						font-weight: bold;
+						padding: 8px 16px;
+						}
+
+						.nav .nav-list ul li a:hover
+						{
+						background-color: #555;
+						color: #fff;
+						}
+
+						.nav .nav-list ul li.first-child a { border-top: 0px; }
+
+						.nav .nav-list ul li.last-child a { border-bottom: 0px; }
+
+
+/******************************* Mobile Nav ********************************/
+.nav-mobile
+{
+overflow: hidden;
+position: absolute;
+left: 0px;
+top: 0px;
+z-index: 4;
+}
+
+.nav-mobile.active { height: auto; }
+
+.nav-mobile,
+.nav-mobile a.nav-view
+{ height: 40px; }
+
+	.nav-mobile a.nav-view
+	{
+	background: #575757 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJRJREFUeNpi%2FP%2F%2FP8NAAiaGAQajDhh1wIA7gAXGYGRk5ABmye%2B0thBoDyfQnh%2FYQkCATp4WwBoCUNd5AikJGlr%2BAiNEYCUhKAqgruOgoQNAQf8BOQqQHUC3hIdc%2FA%2BeXIDLhWSm9CFYDoASH7XKAXwhCCoHoIlxtBwYLQdGq%2BPBURCNlgOj5QDjaNds1AED7QCAAAMAcwZPcwNorZoAAAAASUVORK5CYII%3D") center center no-repeat;
+	-moz-border-radius-bottomright: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	display: block;
+	float: right;
+	width: 40px;
+	}
+
+		.nav-mobile a.nav-view span { display: none; }
+
+	.nav-mobile .nav-list
+	{
+	float: left;
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+	width: 260px;
+	margin-left: -260px;
+	}
+
+	.nav-mobile.active .nav-list
+	{
+	margin-left: 0px;
+	-webkit-transition: margin .3s linear;
+	transition: margin .3s linear;
+	-webkit-transition-delay: .1s;
+	transition-delay: .1s;
+	}
+
+		.nav-mobile .nav-list > li { }
+
+			.nav-mobile ul a
+			{
+			background: -moz-linear-gradient(left,  rgba(0,0,0,0) 0%, rgba(0,0,0,0) 94%, rgba(0,0,0,0.1) 100%);
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,0)), color-stop(94%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0.1)));
+			background: -webkit-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 94%,rgba(0,0,0,0.1) 100%);
+			background: -o-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 94%,rgba(0,0,0,0.1) 100%);
+			background: -ms-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 94%,rgba(0,0,0,0.1) 100%);
+			background: linear-gradient(to right,  rgba(0,0,0,0) 0%,rgba(0,0,0,0) 94%,rgba(0,0,0,0.1) 100%);
+			color: #333;
+			display: block;
+			padding: 18px 16px;
+			}
+
+			.nav-mobile .nav-list > li > a,
+			.nav-mobile .nav-list ul
+			{ border-top: 1px solid #bbb; }
+
+			.nav-mobile .nav-list > li > a
+			{
+			background-color: #f7f7f7;
+			border-bottom: 1px solid #fff;
+			font-size: 16px;
+			padding-left: 33px; /* 18 + */
+			position: relative;
+			}
+
+			.nav-mobile .nav-list > li.has-children > a:after
+			{
+			border-color: transparent transparent transparent #666;
+			border-style: solid;
+			border-width: 9px;
+			content: "";
+			height: 0px;
+			width: 0px;
+			margin-top: -8px;
+			position: absolute;
+			left: 10px;
+			top: 50%;
+			}
+
+			.nav-mobile .nav-list > li.has-children.mobile-selected > a:after
+			{
+			border-color: #666 transparent transparent;
+			margin-top: -4px;
+			left: 5px;
+			}
+
+				.nav-mobile .nav-list > li:first-child > a { border-top: 0px; }
+
+				.nav-mobile .nav-list ul
+				{
+				display: none;
+				list-style-type: none;
+				margin: 0px;
+				padding: 0px;
+				}
+
+				.nav-mobile .nav-list > li.mobile-selected a + ul { display: block; }
+
+					.nav-mobile .hide { display: block; }
+
+					.nav-mobile .nav-list ul a
+					{
+					background-color: #f1f1f1;
+					font-size: 14px;
+					}
+
+	.nav-opaque-layer
+	{
+	background-color: rgba(0,0,0,0.60);
+	display: none;
+	cursor: pointer;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	left: 0px;
+	top: 0px;
+	z-index: 2;
+	}
+
+
+/******************************* Content ********************************/
+.content { background-color: #f1f1f1; }
+
+	.content .container-inside
+	{
+	background-color: #fff;
+	line-height: 2; /* 24px; - http://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/ */
+	min-height: 500px;
+	}
+
+
+/******************************* Footer ********************************/
+.footer
+{
+background-color: #000;
+color: #bbb;
+clear: both;
+padding: 20px 0px;
+}
+
+	.footer .container-inside {	}
+
+		.footer a
+		{
+		color: #ccc;
+		-webkit-transition: color .2s linear;
+		transition: color .2s linear;
+		}
+
+		.footer a:hover { color: #fff; }
+
+		.footer .social > li { margin-left: 10px; }
+
+		.footer .social > li:first-child { margin-left: 0px; }
+
+		.footer .legal { font-size: 10px; }
+
+
+/****************************************************************
+ 8. Print - http://www.alistapart.com/stories/goingtoprint/
+****************************************************************/
+@media print {
+.header, .nav, .footer { display: none; }
+.content { border-width: 0px; color: #000; float: none; padding: 0px; width: 100%; }
+.content a { text-decoration: underline; border-bottom-width: 0px; }
+img { max-width: 100%; }
+p, h2, h3 { orphans: 3; widows: 3; } /* http://davidwalsh.name/html5-boilerplate */
+}
+
+
+
+/****************************************************************
+ 9. Touch - Mostly for touch devices with screens larger than 980
+****************************************************************/
+
+
+
+/****************************************************************
+ 10. Responsive
+****************************************************************/
+
+/* http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/ */
+@-ms-viewport { width: device-width; }
+@-o-viewport { width: device-width; }
+@viewport { width: device-width; }
+
+/* 960 + 20 */
+@media (max-width: 980px) {
+
+.testing body:after
+{
+color: #fff;
+height: 60px;
+width: 60px;
+line-height: 60px;
+position: fixed;
+right: 0px;
+top: 0px;
+text-align: center;
+z-index: 100;
+}
+
+.testing body:after { content: "960 + 20"; background: purple; }
+.testing.canvasflexible body:after { color: red; }
+
+img
+{
+max-width: 100%;
+width: auto;
+}
+
+.container .container-inside { width: auto; }
+
+.equalheight
+{
+height: auto !important;
+min-height: 0px !important;
+}
+
+}
+
+/* 600 + 20 */
+@media (max-width: 620px) {
+
+.testing body:after { background: red; content: "600 + 20"; }
+.testing.mobilenav body:after { color: yellow; }
+
+.responsive-50,
+.responsive-50 > li
+{
+float: none;
+margin: 0px 0px 12px 0px;
+width: 100%;
+}
+
+.content-left.responsive-50,
+.content-right.responsive-50
+{
+display: block;
+float: none;
+margin: 12px 0px;
+}
+
+/******************************* Responsive Tables ********************************/
+table.responsive-50
+{
+position: relative;
+width: 100%;
+}
+
+	table.responsive-50:after
+	{
+	content: "Slide above to view more →";
+	display: block;
+	font-style: italic;
+	font-weight: bold;
+	padding-top: 10px;
+	text-align: right;
+	}
+
+	table.responsive-50 caption { display: block; }
+
+	table.responsive-50 thead { float: left; }
+
+	table.responsive-50 tbody
+	{
+	overflow-x: auto;
+	position: relative;
+	width: auto;
+	white-space: nowrap;
+	}
+
+	table.responsive-50,
+	table.responsive-50 thead
+	table.responsive-50 thead tr,
+	table.responsive-50 th,
+	table.responsive-50 tbody,
+	table.responsive-50 td
+	{ display: block; }
+
+		table.responsive-50 tbody tr
+		{
+		display: inline-block;
+		vertical-align: top;
+		}
+
+			/* Custom Borders and Backgrounds */
+			table.responsive-50 th,
+			table.responsive-50 td
+			{
+			border-style: solid;
+			border-color: #ddd;
+			}
+
+			table.responsive-50 th
+			{
+			background-color: #ddd;
+			border-width: 1px 1px 0px 1px;
+			font-size: 13px;
+			text-align: right;
+			}
+
+			table.responsive-50 td { border-width: 1px 0px 0px 0px; }
+
+			table.responsive-50 tr td:first-child
+			{
+			font-size: 13px;
+			font-weight: bold;
+			}
+
+			table.responsive-50 tbody tr { border-right: 1px solid #ddd; }
+
+			table.responsive-50 th:last-child,
+			table.responsive-50 td:last-child { border-bottom: 1px solid #ddd; }
+
+}
+
+@media (max-width: 480px) {
+
+.testing body:after { background: orange; content: "480"; }
+
+body { word-wrap: break-word; }
+
+.responsive-25,
+.responsive-25 > li
+{
+float: none;
+margin: 0px 0px 10px 0px;
+width: 100%;
+}
+
+}
+
+@media (max-width: 320px) {
+
+.testing body:after { background: yellow; color: black; content: "320"; }
+
+.nav-mobile { width: 40px; }
+
+.nav-mobile.active { width: 100%; }
+
+	.nav-mobile a.nav-view
+	{
+	background-position: 4px 4px;
+	color: #fff;
+	float: none;
+	font-size: 18px;
+	line-height: 2.2;
+	}
+
+	.nav-mobile.active a.nav-view { width: 100%; }
+
+		.nav-mobile a.nav-view span
+		{
+		display: block;
+		padding-left: 45px;
+		padding-right: 15px;
+		text-align: right;
+		word-wrap: normal;
+		opacity: 0;
+		-webkit-transition: opacity .2s linear;
+		transition: opacity .2s linear;
+		-webkit-transition-delay: .5s;
+		transition-delay: .5s;
+		}
+
+		.nav-mobile.active a.nav-view span { opacity: 1; }
+
+	.nav-mobile .nav-list
+	{
+	margin-left: -100%;
+	width: 100%;
+	}
+
+}
+
+@media (max-width: 200px) {
+
+h1 a
+{
+background-size: 100%;
+height: auto;
+max-width: 100%;
+width: 100%;
+}
+
+}
+</style>
+
+<!--[if lte IE 8]><script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><![endif]-->
+<!--[if gte IE 9]><script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script><![endif]-->
+<!--[if !IE]> --><script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script><!-- <![endif]-->
+
+<!-- REMOVE IN PRODUCTION -->
+<!--<script src="http://code.jquery.com/jquery-migrate-1.2.1.js"></script>
+<script src="http://debug.build.phonegap.com/target/target-script-min.js#neal-template"></script>  Visit to debug http://debug.build.phonegap.com/client/#neal-template -->
+
+<!--<script type="text/javascript" src="files/js/_build/common.js"></script>-->
+<!--
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/flexslider/2.2.2/jquery.flexslider-min.js"></script>
+<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/flexslider/2.2.2/flexslider-min.css" media="all">
+-->
+
+<script type="text/javascript">
+if (!window.console) window.console = {};
+if (!window.console.log) window.console.log = function () { };
+var testing = true;
+
+
+$(window).load(function() {
+
+	$("html").addClass("window-load").removeClass("no-window-load");
+	
+	/*
+	$(".flexslider").flexslider({
+		animation: "fade",
+		smoothHeight: false,
+		controlNav: true,
+		directionNav: true,
+		useCSS: true,
+		//controlsContainer: "",
+		start: function(slider){
+			$(slider).removeClass("loading");
+			if(testing == false) _gaq.push(['_trackEvent', 'slider', 'view', 1, 1]);
+		},
+		after: function(slider) {
+			if(testing == false) _gaq.push(['_trackEvent', 'slider', 'view', slider.currentSlide+1, 1]);
+		}
+	});
+	*/
+});
+
+
+$(document).ready(function(){
+
+$("html").addClass("document-ready").removeClass("no-document-ready");
+
+if(testing) $("html").addClass("testing");
+
+
+/****************************************************************
+	Responsive
+****************************************************************/
+var mobilenav = new responsive({
+	classname: "mobilenav",
+	maxWidth: 600
+});
+mobilenav.init();
+
+var canvasflexible = new responsive({
+	classname: "canvasflexible",
+	maxWidth: 960
+});
+canvasflexible.init();
+canvasflexible.resize();
+
+
+/****************************************************************
+	jQuery plugin calls
+****************************************************************/
+$(".equal-columns > li").setMinHeight(0).addClass("equalheight");
+$("input[placeholder], textarea[placeholder]").placeholder();
+$(".content").fitVids();
+
+FastClick.attach(document.body);
+
+$("img.unveil:not(.loaded)").unveil(200, function() {
+	$(this).load(function() {
+		$(this).addClass("loaded");
+	});
+});
+
+/****************************************************************
+	Touch nav hide/show
+****************************************************************/
+var animating = 0;
+$(document).on("click nav-view", ".event-nav-view", function(e){
+
+	if(animating == 0)
+	{
+		var t = $(this);
+		var parent = $(".nav-mobile");
+
+		parent.toggleClass("active");
+		
+		if(parent.hasClass("active"))
+		{
+			animating = 1;
+			$(".header").remove(".nav-opaque-layer").prepend('<div class="nav-opaque-layer event-nav-view" title="Open/Close"></div>');
+			$(".nav-opaque-layer").fadeIn(300, function(){
+				animating = 0;
+				if(testing == false) _gaq.push(['_trackEvent', 'nav', 'click', 'open', 1]);
+			});			
+		} else {
+			animating = 1;
+			$(".nav-opaque-layer").fadeOut(300, function(){
+				$(this).remove();
+				animating = 0;
+				if(testing == false) _gaq.push(['_trackEvent', 'nav', 'click', 'close', 1]);
+			});
+		}
+	}
+
+	return false;
+});
+
+
+/****************************************************************
+	Click event for parent nav items in mobile nav
+****************************************************************/
+$(document).on("click", ".nav-mobile .nav-list > li.has-children > a", function(e) {
+	var t = $(this);
+	var parent = t.closest("li");
+	parent.toggleClass("mobile-selected");
+	if(testing == false) _gaq.push(['_trackEvent', 'nav', 'click', 'children', 1]);
+	return false;
+});
+
+
+/****************************************************************
+	Responsive tabs
+****************************************************************/
+$(document).on("click", ".tabs > li > a, .accordion > dt > a", function(e) {
+	var t = $(this);
+	var root = t.closest(".accordion-group");
+	var href = t.attr("href");
+	var tab = root.find("> .tabs > li > a[href='"+href+"']").closest("li");
+	var accordion = root.find("> .accordion > dt > a[href='"+href+"']").closest("dt");
+
+	var caller = false;
+	if(t.parent().is("dt")) caller = "accordion";
+	if(t.parent().is("li")) caller = "tab";
+
+	if(testing == false) _gaq.push(['_trackEvent', 'accordion', 'click', href, 1]);
+
+	if((root.hasClass("multiple") && caller == "accordion"))
+	{
+		tab.toggleClass("selected");
+		accordion.toggleClass("selected");
+
+		accordion.next("dd").slideToggle(200, function(){
+			var t = $(this);
+			t.toggleClass("selected");
+			t.removeAttr("style");
+		});
+	} else {
+		if(!tab.hasClass("selected") || !accordion.hasClass("selected"))
+		{
+			/* View one at a time - nth = root.find(".accordion > dt").index( t.closest("dt") ); */
+			root.find("> .tabs > li").removeClass("selected");
+			root.find("> .accordion > dt").removeClass("selected");
+			root.find("> .accordion > dd").removeClass("selected");
+
+			tab.addClass("selected");
+			accordion.addClass("selected");
+
+			if(caller == "accordion")
+			{
+				accordion.next("dd").slideDown(200, function(){
+					$(this).addClass("selected");
+				});
+			}
+
+			if(caller == "tab")
+			{
+				accordion.next("dd").fadeIn(0, function(){
+					$(this).addClass("selected");
+				});
+			}
+		} //!hasClass("selected")
+	}
+
+	return false;
+});
+
+
+/****************************************************************
+	Loading Youtube videos onclick. Saves 300kb on page load
+****************************************************************/
+$(document).on("click", ".event-enable-video", function(e){
+	var t = $(this);
+	var w = t.attr("data-width");
+	var h = t.attr("data-height");
+	var url = t.attr("href");
+	t.closest(".enable-video-container").addClass("loading");
+	t.next(".enable-video-preview").hide();
+	t.hide();
+	t.after('<iframe width="'+w+'" height="'+h+'" src="'+url+'" frameborder="0" allowfullscreen></iframe>');
+	$(".content").fitVids();
+	return false;
+});
+
+
+/****************************************************************
+	.buttons
+****************************************************************/
+$(document).ready(function(e) {
+	$(document).on("click", ".testing .button", function(e) {
+		return false;
+	});
+	
+	$(document).on("click", ".event-active", function(e) {
+		var t = $(this);
+		t.addClass("active");
+		return false;
+	});
+});
+
+
+/****************************************************************
+	Load AJAX into element onload
+	Usage:
+	<div class="event-ajax-onload" id="ajax-1" data-ajax-url="/" data-merge-parameters='{"page": "0", "count": "1"}'></div>
+****************************************************************/
+//Multiple elements, already placed in HTML
+var data_ajax_onload = new Object();
+$(".event-ajax-onload[data-ajax-url]").each(function(index, element) {
+	var t = $(this);
+	
+	data_ajax_onload[index] = new custom_ajax({
+		t: t,
+		target: t,
+		id: "#" + t.attr("id"),
+		url: t.attr("data-ajax-url")
+	});
+	
+	data_ajax_onload[index].event_ajax_onload();
+});
+
+//Example: Invoke via Javascript
+var ajax_via_javascript = new custom_ajax({
+	t: $("#ajax-3"),
+	target: $("#ajax-3"),
+	id: "#ajax-3",
+	url: "/files/ajax/posts.php",
+	submit_parameters: {
+		"page": "0", 
+		"count": "1", 
+		"view": "linear",
+		"taxonomy": "category", 
+		"term": "commercial"
+	}		
+});
+
+ajax_via_javascript.event_ajax_onload();
+
+
+/****************************************************************
+	Generic 'Load More' Handler
+	Usage:
+	<a href="#loadmore" class="event-ajax-load" data-ajax-url="/" data-ajax-target="#container" data-ajax-append="1">Load More</a>
+****************************************************************/
+$(document).on("click",".event-ajax-load[data-ajax-url][data-ajax-target]",function(e){
+	var t = $(this);
+	var target = t.attr("data-ajax-target");
+	
+	var loadmore = new custom_ajax({
+		t: t,
+		target: $(target),
+		url: t.attr("data-ajax-url"),
+		id: target
+	});
+	
+	loadmore.event_ajax_loadmore();
+	
+	return false;
+});
+
+
+/****************************************************************
+	Generic panel open/close toggle - Primarily used for hiding/showing two elements
+	Shorthand for .event-toggle-class
+****************************************************************/
+$(document).on("click", ".event-panel-toggle", function(e){
+	var t = $(this);	
+	var targetOpen = t.attr("data-panel-open-target");
+	var targetClose = t.attr("data-panel-close-target");
+	if(targetOpen) $(targetOpen).removeClass("hide").addClass("visible");
+	if(targetClose) $(targetClose).removeClass("visible").addClass("hide");
+	return false;
+});
+
+
+/****************************************************************
+	Generic panel toggle menu - Primarily used for dropdown menus
+****************************************************************/
+$(document).on("click event-panel-toggle-menu", ".event-panel-toggle-menu", function(e){
+	var t = $(this);	
+	var target = t.attr("data-panel-toggle-target");
+	if($(target).hasClass("hidden"))
+	{
+		t.addClass("active");
+		$(target).addClass("visible").removeClass("hidden");
+	} else {
+		t.removeClass("active");
+		$(target).addClass("hidden").removeClass("visible");
+	}
+	
+	if(!t.is("[type=checkbox]"))
+	{
+		return false;
+	}
+});
+
+//Close 'Generic panel toggle' - http://stackoverflow.com/questions/152975/how-to-detect-a-click-outside-an-element
+$(document).on("click", function(e){
+	var selector = ".visible[data-offclick-close=true]:visible";	
+	if($(e.target).closest(selector).length == 0)
+	{
+		$(".event-panel-toggle-menu + " + selector).each(function(index, element) {		
+			var t = $(this);
+			t.prev(".event-panel-toggle-menu").trigger("event-panel-toggle-menu");
+		});	
+	}	
+});
+
+
+/****************************************************************
+	Generic class toggle
+****************************************************************/
+$(document).on("click", ".event-toggle-class[data-toggle-class-add-target][data-toggle-class-remove-target][data-toggle-class-add][data-toggle-class-remove]", function(e){
+	var t = $(this);
+	var targetAdd = t.attr("data-toggle-class-add-target");
+	var targetRemove = t.attr("data-toggle-class-remove-target");
+	var targetAddClass = t.attr("data-toggle-class-add");
+	var targetRemoveClass = t.attr("data-toggle-class-remove");
+	$(targetAdd).addClass(targetAddClass);
+	$(targetRemove).removeClass(targetRemoveClass);
+	return false;
+});
+
+
+/****************************************************************
+	Generic input value clearing
+****************************************************************/
+$(document).on("click", ".event-input-clear[data-clear-input]", function(e){
+	var t = $(this);
+	$(t.attr("data-clear-input")).val("");
+	return false;
+});
+
+
+/****************************************************************
+	Generic copy DOM Nodes
+****************************************************************/
+$(".event-copy-node[data-copy-node-source]").each(function(index, element) {
+	var t = $(this);
+	var source = t.attr("data-copy-node-source");
+	var cloned = $(source).clone();
+	t.html(cloned);
+});
+
+
+/****************************************************************
+	Generic scroll to - //http://djpate.com/2009/10/07/animated-scroll-to-anchorid-function-with-jquery/
+****************************************************************/
+$(document).on("click", ".event-scroll-to[data-scroll-to]", function(e) {
+	var t = $(this);
+	var target = t.attr("data-scroll-to");
+	$("html,body").animate({scrollTop: $(target).offset().top - 10},300);
+	return false;
+});
+
+
+/****************************************************************
+	Dynamically load Javascript files only if needed
+****************************************************************/
+jQuery.cachedScript = function( url, options ) {
+	options = $.extend( options || {}, {
+		dataType: "script",
+		cache: true,
+		url: url
+	});
+	return jQuery.ajax( options );
+};
+
+if($(".element-exists").length > 0)
+{
+	$.cachedScript("file.js");
+}
+
+
+/****************************************************************
+	Opening external links in new window
+****************************************************************/
+$(document).on("click", "a[href*='http']:not(.new-window-ignore)", function(e){
+	var t = $(this);
+	if(testing == false) _gaq.push(['_trackEvent', 'link', 'click', t.attr("href"), 1]);
+	window.open(t.attr("href"));
+	return false;
+});
+
+
+
+/****************************************************************
+	Add classes for OS & Old IE
+****************************************************************/
+var ua = new ua_classname();
+ua.init();
+
+
+}); // END document.ready
+
+
+/****************************************************************
+	UA Parser class
+****************************************************************/
+var ua_classname = ua_classname || {};
+ua_classname = function ( properties ) {
+	var _parser = new UAParser();
+	_parser.setUA(navigator.userAgent);
+	
+	function _to_classname(input)
+	{
+		input = input.replace(/ /g,"_");
+		input = input.replace(/\./g,"_");
+		input = input.toLowerCase();
+		return input;
+	}
+	
+	//https://gist.github.com/padolsey/527683
+	function _ie()
+	{
+		var ie = (function() {
+			var v = 3, div = document.createElement("div"), a = div.all || [];
+			while (div.innerHTML = "<!--[if gt IE "+(++v)+"]><br><![endif]-->", a[0]);
+			return v > 4 ? v : !v;
+		}());
+		
+		if(ie) { _addclass("ie" + ie); }
+	}
+	
+	//https://github.com/faisalman/ua-parser-js
+	function _os()
+	{
+		var os = _parser.getResult();
+		_addclass(_to_classname(os.os.name + "_" + os.os.version));
+		_addclass(_to_classname(os.os.name));
+	}
+	
+	function _browser()
+	{
+		var browser = _parser.getBrowser();
+		_addclass(_to_classname(browser.name + "_" + browser.version));
+		_addclass(_to_classname(browser.name));
+	}
+	
+	function _device()
+	{
+		var device = _parser.getDevice();
+		if(typeof device.model != "undefined") { _addclass(_to_classname(device.model)); }
+	}
+	
+	function _addclass(classname)
+	{
+		$("html").addClass(classname);
+	}
+
+	return {
+		init: function() {
+			_ie();
+			_os();
+			_browser();
+			_device();	
+		}
+	};
+};
+
+
+/****************************************************************
+	Generic AJAX class
+****************************************************************/
+var custom_ajax_state = {};
+
+var custom_ajax = custom_ajax || {};
+custom_ajax = function ( merge_options ) {
+	var defaults = {
+		t: "",
+		target: "",	
+		url: "",
+		append: false,
+		merge_parameters: {},
+		submit_parameters: {}
+	}
+	
+	var options = $.extend(defaults, merge_options);
+
+	function _init_loading()
+	{
+		options.t.addClass("cursor-waiting");
+		options.target.addClass("loading");
+	}
+	
+	function _teardown_loading()
+	{
+		options.t.removeClass("cursor-waiting");
+		options.target.removeClass("loading");
+	}
+	
+	function _ajax(callback)
+	{		
+		console.log("options.submit_parameters", options.submit_parameters);
+		$.ajax({
+			data: options.submit_parameters,
+			url: options.url,
+			type: "get",
+			dataType: "html"
+		})
+		.always(function() {
+			_teardown_loading();
+		})
+		.done(function(data) {
+			if(data != "")
+			{
+				if(options.append == false)
+				{
+					options.target.html(data);
+				} else {
+					options.target.append(data);
+				}
+
+				if(callback != "") { callback(data); }
+			}
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			options.target.append(textStatus + errorThrown);
+		});
+		
+	}
+	
+	function _loadmore_end(data)
+	{
+		var similar_elements = $("[data-ajax-target="+options.id+"][data-ajax-append=1]");
+		if(options.append)
+		{
+			if(options.target.find(".ajax_end").length > 0)
+			{
+				similar_elements.addClass("hide");
+			} else {
+				similar_elements.removeClass("hide");
+			}
+		} else {
+			similar_elements.removeClass("hide");
+		}
+	}
+	
+	function _set_append()
+	{
+		if(options.t.is("[data-ajax-append]"))
+		{
+			if(options.t.attr("data-ajax-append") == "1") { options.append = 1; }
+		}
+	}
+	
+	function _merge_attribute_parameters()
+	{
+		if(options.t.is("[data-merge-parameters]"))
+		{
+			var data_merge_parameters = JSON.parse(options.t.attr("data-merge-parameters"));
+			options.submit_parameters = $.extend(options.submit_parameters, data_merge_parameters);
+		}
+	}
+	
+	function _merge_global_parameters()
+	{
+		options.submit_parameters = $.extend(_get_global_state(), options.submit_parameters);
+	}
+	
+	function _set_increment_page()
+	{
+		if(options.append) { options.submit_parameters.page = parseInt(options.submit_parameters.page) + 1 + ""; }
+	}
+	
+	function _cleanup_parameters()
+	{
+		for (var i in options.submit_parameters)
+		{
+			if (options.submit_parameters[i] === "") { delete options.submit_parameters[i]; }
+		}
+	}
+	
+	function _get_global_state()
+	{
+		return custom_ajax_state[options.id];
+	}
+	
+	function _set_global_state()
+	{
+		custom_ajax_state[options.id] = options.submit_parameters;
+	}
+
+	return {
+		event_ajax_onload: function() {
+			_init_loading(options.t,options.t);
+			_merge_attribute_parameters();
+			_cleanup_parameters();
+			_set_global_state();
+			_ajax(_loadmore_end);
+		},
+		
+		event_ajax_loadmore: function() {
+			_init_loading(options.t,options.target);
+			_set_append(); //unqiue
+			_merge_attribute_parameters();
+			_merge_global_parameters(); //unqiue
+			_set_increment_page(); //unqiue
+			_cleanup_parameters();
+			_set_global_state();
+			_ajax(_loadmore_end);
+		}
+	};
+};
+
+
+/****************************************************************
+	Reponsive class
+****************************************************************/
+var responsive = responsive || {};
+responsive = function ( properties ) {
+	//Private properties and methods.
+	var _browser_scrollbars_width = 20;
+	var _screen_modifier_width = 1 + _browser_scrollbars_width;
+	var _width = properties.maxWidth + _screen_modifier_width;
+	var _type = properties.classname;
+	
+	function _viewport_resized(viewport_width)
+	{
+		if(typeof viewport_width == "object")
+		{
+			if(viewport_width.matches)
+			{
+				_media_query_matches(true);
+			} else {
+				_media_query_matches(false);
+			}
+		}
+
+		if(typeof viewport_width == "number")
+		{
+			if(viewport_width < _width)
+			{
+				_media_query_matches(true);
+			} else {
+				_media_query_matches(false);
+			}
+		}
+	}	
+
+	function _media_query_matches(is_matched)
+	{
+		if(_type == "mobilenav")
+		{
+			//For random users that activate menu and then resize while it's still visible
+			if($("#main-nav").hasClass("active"))
+			{
+				$(".event-nav-view:first").trigger("nav-view");
+			}
+		}
+		
+		if(is_matched)
+		{
+			$("html").addClass(_type).removeClass("no-" + _type);
+			if(_type == "mobilenav") $("#main-nav").addClass("nav-mobile").removeClass("nav");
+		} else {
+			$("html").addClass("no-" + _type).removeClass(_type);
+			if(_type == "mobilenav") $("#main-nav").addClass("nav").removeClass("nav-mobile");
+			if(_type == "canvasflexible") _reset_responsive_tabs();
+		}	
+	}
+
+	function _reset_responsive_tabs()
+	{
+		$(".accordion-group.multiple").each(function(index, element) {
+			var root = $(this);
+			var activeTabsLength = root.find(".tabs > li.selected").length;
+			if(activeTabsLength !== 1)
+			{
+				var first = root.find(".tabs > li.selected:first a");
+				if(first.length === 0) first = root.find(".tabs > li:first a");
+	
+				root.find(".tabs > li").removeClass("selected");
+				root.find(".accordion > dt").removeClass("selected");
+				root.find(".accordion > dd").removeClass("selected");
+				first.click();
+			}
+		});
+	}
+
+	//Public properties and methods.
+	return {		
+		init: function() {
+			/****************************************************************
+				Enable mobile nav or flexible canvas - Note: http://www.stucox.com/blog/you-cant-detect-a-touchscreen/
+					Testing for touch
+					$("html").removeClass("no-touch");
+					$("html").addClass("touch");
+			****************************************************************/
+			if($("html").hasClass("touch"))
+			{
+				_media_query_matches(true);
+			} else if(window.matchMedia) {
+				var mql = window.matchMedia("(max-width: " + _width + "px)");
+				mql.addListener(_viewport_resized);
+				_viewport_resized(mql);
+			} else {
+				_viewport_resized(this.viewport().width);
+			}
+		},
+
+		resize: function() {
+			if(!window.matchMedia)
+			{
+				var $this = this;
+				//Only call resize function if horizontal width has changed
+				var old_viewport_width = $this.viewport().width,
+					new_viewport_width = 0;
+
+				$(window).resize(function(){
+					new_viewport_width = $this.viewport().width;
+
+					if(old_viewport_width != new_viewport_width && $("html").hasClass("mediaqueries")) //&& $("html").hasClass("touch") == false
+					{
+						_viewport_resized(new_viewport_width);
+					}
+					
+					old_viewport_width = new_viewport_width;
+				});
+			} //!window.matchMedia
+		},
+			
+		viewport: function() {
+			//http://stackoverflow.com/questions/11309859/media-queries-and-window-width
+			var e = window, a = "inner";
+			if (!("innerWidth" in window )) {
+				a = "client";
+				e = document.documentElement || document.body;
+			}
+			return { width : e[ a+"Width" ] , height : e[ a+"Height" ] };
+		}
+		
+	};
+};
+
+
+/*
+http://www.woothemes.com/flexslider/
+http://detectmobilebrowsers.com/
+http://marijnhaverbeke.nl/uglifyjs
+*/
+
+
+/****************************************************************
+	https://github.com/piotrooo/jquery-evenifhidden
+****************************************************************/
+jQuery.fn.evenIfHidden = function( callback ) {
+
+	return this.each( function() {
+		var self = jQuery(this);
+		var styleBackups = [];
+
+		var hiddenElements = self.parents().addBack().filter(":hidden"); //var hiddenElements = self.parents().andSelf().filter(':hidden');
+
+		if ( ! hiddenElements.length ) {
+			callback( self );
+			return true; //continue the loop
+		}
+
+		hiddenElements.each( function() {
+			var style = $(this).attr("style");
+			style = typeof style == "undefined"? "": style;
+			styleBackups.push( style );
+			$(this).attr( "style", style + " display: block !important;" );
+		});
+
+		hiddenElements.eq(0).css( "left", -10000 );
+
+		callback(self);
+
+		hiddenElements.each( function() {
+			$(this).attr( "style", styleBackups.shift() );
+		});
+	
+	});
+};
+
+
+/****************************************************************
+	http://stackoverflow.com/questions/4216036/jquery-set-height-to-every-2-or-3-elements
+****************************************************************/
+jQuery.fn.setMinHeight = function(setCount) {
+	if(setCount == 0)
+	{
+		setCount = this.length;
+	}
+
+	for(var i = 0; i < this.length; i+=setCount) {
+		var curSet = this.slice(i, i+setCount), 
+			height = 0;
+		curSet.each(function() {
+			jQuery(this).evenIfHidden( function(element) {
+				height = Math.max(height, element.height())+1; //IE9 bug, missing 1px
+			});
+		})
+		.css("min-height", height);
+	}
+	return this;
+};
+
+
+/****************************************************************
+	https://github.com/diy/jquery-placeholder
+	Alternative: http://www.jonathansewell.co.uk/index.php/2011/05/25/html5-placeholder-shimshivfiller/
+****************************************************************/
+/*! jquery.placeholder.js | https://github.com/diy/jquery-placeholder | Apache License (v2) */
+(function(f){var j="placeholder"in document.createElement("input"),h="-moz-box-sizing -webkit-box-sizing box-sizing padding-top padding-right padding-bottom padding-left margin-top margin-right margin-bottom margin-left border-top-width border-right-width border-bottom-width border-left-width line-height font-size font-family width height top left right bottom".split(" ");f.fn.placeholder=function(g){var k=this;g=g||{};if(j&&!g.force)return this;window.setTimeout(function(){k.each(function(){var e=
+this.tagName.toLowerCase();if("input"===e||"textarea"===e)a:{var b,d,a=f(this),c;try{b=a[0].getAttributeNode("placeholder");if(!b)break a;d=a[0].getAttribute("placeholder");if(!d||!d.length)break a;a[0].setAttribute("placeholder","");a.data("placeholder",d)}catch(g){break a}e={};for(b=0;b<h.length;b++)e[h[b]]=a.css(h[b]);b=parseInt(a.css("z-index"),10);if(isNaN(b)||!b)b=1;c=f("<span>").addClass("placeholder").html(d);c.css(e);c.css({cursor:a.css("cursor")||"text",display:"block",position:"absolute",
+overflow:"hidden","z-index":b+1,background:"none","border-top-style":"solid","border-right-style":"solid","border-bottom-style":"solid","border-left-style":"solid","border-top-color":"transparent","border-right-color":"transparent","border-bottom-color":"transparent","border-left-color":"transparent"});c.insertBefore(a);e=a.offset().top-c.offset().top;d=parseInt(c.css("margin-top"));isNaN(d)&&(d=0);c.css("margin-top",d+e);c.on("mousedown",function(){a.is(":enabled")&&window.setTimeout(function(){a.trigger("focus")},
+0)});a.on("focus.placeholder",function(){c.hide()});a.on("blur.placeholder",function(){c.toggle(!f.trim(a.val()).length)});a[0].onpropertychange=function(){"value"===event.propertyName&&a.trigger("focus.placeholder")};a.trigger("blur.placeholder")}})},0);return this}})(jQuery);
+
+
+/****************************************************************
+	https://github.com/luis-almeida/unveil
+****************************************************************/
+!function(a){a.fn.unveil=function(b,c){function j(){var b=h.filter(function(){var b=a(this);if(!b.is(":hidden")){var c=d.scrollTop(),f=c+d.height(),g=b.offset().top,h=g+b.height();return h>=c-e&&f+e>=g}});i=b.trigger("unveil"),h=h.not(i)}var i,d=a(window),e=b||0,f=window.devicePixelRatio>1,g=f?"data-src-retina":"data-src",h=this;return this.one("unveil",function(){var a=this.getAttribute(g);a=a||this.getAttribute("data-src"),a&&(this.setAttribute("src",a),"function"==typeof c&&c.call(this))}),d.on("scroll.unveil resize.unveil lookup.unveil",j),j(),this}}(window.jQuery||window.Zepto);
+
+
+/****************************************************************
+	https://github.com/davatron5000/FitVids.js	
+****************************************************************/
+!function(a){"use strict";a.fn.fitVids=function(b){var c={customSelector:null,ignore:null};if(!document.getElementById("fit-vids-style")){var d=document.head||document.getElementsByTagName("head")[0],e=".fluid-width-video-wrapper{width:100%;position:relative;padding:0;}.fluid-width-video-wrapper iframe,.fluid-width-video-wrapper object,.fluid-width-video-wrapper embed {position:absolute;top:0;left:0;width:100%;height:100%;}",f=document.createElement("div");f.innerHTML='<p>x</p><style id="fit-vids-style">'+e+"</style>",d.appendChild(f.childNodes[1])}return b&&a.extend(c,b),this.each(function(){var b=["iframe[src*='player.vimeo.com']","iframe[src*='youtube.com']","iframe[src*='youtube-nocookie.com']","iframe[src*='kickstarter.com'][src*='video.html']","object","embed"];c.customSelector&&b.push(c.customSelector);var d=".fitvidsignore";c.ignore&&(d=d+", "+c.ignore);var e=a(this).find(b.join(","));e=e.not("object object"),e=e.not(d),e.each(function(){var b=a(this);if(!(b.parents(d).length>0||"embed"===this.tagName.toLowerCase()&&b.parent("object").length||b.parent(".fluid-width-video-wrapper").length)){b.css("height")||b.css("width")||!isNaN(b.attr("height"))&&!isNaN(b.attr("width"))||(b.attr("height",9),b.attr("width",16));var c="object"===this.tagName.toLowerCase()||b.attr("height")&&!isNaN(parseInt(b.attr("height"),10))?parseInt(b.attr("height"),10):b.height(),e=isNaN(parseInt(b.attr("width"),10))?b.width():parseInt(b.attr("width"),10),f=c/e;if(!b.attr("id")){var g="fitvid"+Math.floor(999999*Math.random());b.attr("id",g)}b.wrap('<div class="fluid-width-video-wrapper"><\/div>').parent(".fluid-width-video-wrapper").css("padding-top",100*f+"%"),b.removeAttr("height").removeAttr("width")}})})}}(window.jQuery||window.Zepto);
+
+
+/****************************************************************
+	https://github.com/scottjehl/iOS-Orientationchange-Fix
+****************************************************************/
+/*! A fix for the iOS orientationchange zoom bug. Script by @scottjehl, rebound by @wilto.MIT / GPLv2 License.*/(function(a){function m(){d.setAttribute("content",g),h=!0}function n(){d.setAttribute("content",f),h=!1}function o(b){l=b.accelerationIncludingGravity,i=Math.abs(l.x),j=Math.abs(l.y),k=Math.abs(l.z),(!a.orientation||a.orientation===180)&&(i>7||(k>6&&j<8||k<8&&j>6)&&i>5)?h&&n():h||m()}var b=navigator.userAgent;if(!(/iPhone|iPad|iPod/.test(navigator.platform)&&/OS [1-5]_[0-9_]* like Mac OS X/i.test(b)&&b.indexOf("AppleWebKit")>-1))return;var c=a.document;if(!c.querySelector)return;var d=c.querySelector("meta[name=viewport]"),e=d&&d.getAttribute("content"),f=e+",maximum-scale=1",g=e+",maximum-scale=10",h=!0,i,j,k,l;if(!d)return;a.addEventListener("orientationchange",m,!1),a.addEventListener("devicemotion",o,!1)})(this); 
+
+
+/****************************************************************
+	https://github.com/chapmanu/fragmentions
+****************************************************************/
+if(!("fragmention"in window.location))(function(){function e(t,n){for(var r=t.childNodes,i=0,s,o=[];s=r[i];++i){if(s.nodeType===1&&(s.innerText||s.textContent||"").replace(/\s+/g," ").indexOf(n)!==-1){o=o.concat(e(s,n))}}return o.length?o:t}function t(){if(!/e/.test(document.readyState))return;var t=location.href.match(/#((?:#|%23)?)(.+)/)||[0,"",""],n=document.getElementById(t[1]+t[2]),r=decodeURIComponent(t[2]).replace(/\+/g," ").split("  ");location.fragmention=r[0];location.fragmentionIndex=parseFloat(r[1])||0;if(i){i.removeAttribute("fragmention");if(i.runtimeStyle){i.runtimeStyle.windows=i.runtimeStyle.windows}}if(!n&&location.fragmention){var s=e(document,location.fragmention),o=s.length,u=o&&location.fragmentionIndex%o,a=o&&u>=0?u:o+u;i=o&&s[a];if(i){i.scrollIntoView();i.setAttribute("fragmention","");if(i.runtimeStyle){i.runtimeStyle.windows=i.runtimeStyle.windows}}else{i=null}}}location.fragmention=location.fragmention||"";var n="addEventListener",r=n in window?[n,""]:["attachEvent","on"],i;window[r[0]](r[1]+"hashchange",t);document[r[0]](r[1]+"readystatechange",t);t()})();
+
+
+/****************************************************************
+	https://github.com/ftlabs/fastclick
+****************************************************************/
+function FastClick(a,b){"use strict";function d(a,b){return function(){return a.apply(b,arguments)}}var c;if(b=b||{},this.trackingClick=!1,this.trackingClickStart=0,this.targetElement=null,this.touchStartX=0,this.touchStartY=0,this.lastTouchIdentifier=0,this.touchBoundary=b.touchBoundary||10,this.layer=a,this.tapDelay=b.tapDelay||200,!FastClick.notNeeded(a)){for(var e=["onMouse","onClick","onTouchStart","onTouchMove","onTouchEnd","onTouchCancel"],f=this,g=0,h=e.length;h>g;g++)f[e[g]]=d(f[e[g]],f);deviceIsAndroid&&(a.addEventListener("mouseover",this.onMouse,!0),a.addEventListener("mousedown",this.onMouse,!0),a.addEventListener("mouseup",this.onMouse,!0)),a.addEventListener("click",this.onClick,!0),a.addEventListener("touchstart",this.onTouchStart,!1),a.addEventListener("touchmove",this.onTouchMove,!1),a.addEventListener("touchend",this.onTouchEnd,!1),a.addEventListener("touchcancel",this.onTouchCancel,!1),Event.prototype.stopImmediatePropagation||(a.removeEventListener=function(b,c,d){var e=Node.prototype.removeEventListener;"click"===b?e.call(a,b,c.hijacked||c,d):e.call(a,b,c,d)},a.addEventListener=function(b,c,d){var e=Node.prototype.addEventListener;"click"===b?e.call(a,b,c.hijacked||(c.hijacked=function(a){a.propagationStopped||c(a)}),d):e.call(a,b,c,d)}),"function"==typeof a.onclick&&(c=a.onclick,a.addEventListener("click",function(a){c(a)},!1),a.onclick=null)}}var deviceIsAndroid=navigator.userAgent.indexOf("Android")>0,deviceIsIOS=/iP(ad|hone|od)/.test(navigator.userAgent),deviceIsIOS4=deviceIsIOS&&/OS 4_\d(_\d)?/.test(navigator.userAgent),deviceIsIOSWithBadTarget=deviceIsIOS&&/OS ([6-9]|\d{2})_\d/.test(navigator.userAgent),deviceIsBlackBerry10=navigator.userAgent.indexOf("BB10")>0;FastClick.prototype.needsClick=function(a){"use strict";switch(a.nodeName.toLowerCase()){case"button":case"select":case"textarea":if(a.disabled)return!0;break;case"input":if(deviceIsIOS&&"file"===a.type||a.disabled)return!0;break;case"label":case"video":return!0}return/\bneedsclick\b/.test(a.className)},FastClick.prototype.needsFocus=function(a){"use strict";switch(a.nodeName.toLowerCase()){case"textarea":return!0;case"select":return!deviceIsAndroid;case"input":switch(a.type){case"button":case"checkbox":case"file":case"image":case"radio":case"submit":return!1}return!a.disabled&&!a.readOnly;default:return/\bneedsfocus\b/.test(a.className)}},FastClick.prototype.sendClick=function(a,b){"use strict";var c,d;document.activeElement&&document.activeElement!==a&&document.activeElement.blur(),d=b.changedTouches[0],c=document.createEvent("MouseEvents"),c.initMouseEvent(this.determineEventType(a),!0,!0,window,1,d.screenX,d.screenY,d.clientX,d.clientY,!1,!1,!1,!1,0,null),c.forwardedTouchEvent=!0,a.dispatchEvent(c)},FastClick.prototype.determineEventType=function(a){"use strict";return deviceIsAndroid&&"select"===a.tagName.toLowerCase()?"mousedown":"click"},FastClick.prototype.focus=function(a){"use strict";var b;deviceIsIOS&&a.setSelectionRange&&0!==a.type.indexOf("date")&&"time"!==a.type?(b=a.value.length,a.setSelectionRange(b,b)):a.focus()},FastClick.prototype.updateScrollParent=function(a){"use strict";var b,c;if(b=a.fastClickScrollParent,!b||!b.contains(a)){c=a;do{if(c.scrollHeight>c.offsetHeight){b=c,a.fastClickScrollParent=c;break}c=c.parentElement}while(c)}b&&(b.fastClickLastScrollTop=b.scrollTop)},FastClick.prototype.getTargetElementFromEventTarget=function(a){"use strict";return a.nodeType===Node.TEXT_NODE?a.parentNode:a},FastClick.prototype.onTouchStart=function(a){"use strict";var b,c,d;if(a.targetTouches.length>1)return!0;if(b=this.getTargetElementFromEventTarget(a.target),c=a.targetTouches[0],deviceIsIOS){if(d=window.getSelection(),d.rangeCount&&!d.isCollapsed)return!0;if(!deviceIsIOS4){if(c.identifier===this.lastTouchIdentifier)return a.preventDefault(),!1;this.lastTouchIdentifier=c.identifier,this.updateScrollParent(b)}}return this.trackingClick=!0,this.trackingClickStart=a.timeStamp,this.targetElement=b,this.touchStartX=c.pageX,this.touchStartY=c.pageY,a.timeStamp-this.lastClickTime<this.tapDelay&&a.preventDefault(),!0},FastClick.prototype.touchHasMoved=function(a){"use strict";var b=a.changedTouches[0],c=this.touchBoundary;return Math.abs(b.pageX-this.touchStartX)>c||Math.abs(b.pageY-this.touchStartY)>c?!0:!1},FastClick.prototype.onTouchMove=function(a){"use strict";return this.trackingClick?((this.targetElement!==this.getTargetElementFromEventTarget(a.target)||this.touchHasMoved(a))&&(this.trackingClick=!1,this.targetElement=null),!0):!0},FastClick.prototype.findControl=function(a){"use strict";return void 0!==a.control?a.control:a.htmlFor?document.getElementById(a.htmlFor):a.querySelector("button, input:not([type=hidden]), keygen, meter, output, progress, select, textarea")},FastClick.prototype.onTouchEnd=function(a){"use strict";var b,c,d,e,f,g=this.targetElement;if(!this.trackingClick)return!0;if(a.timeStamp-this.lastClickTime<this.tapDelay)return this.cancelNextClick=!0,!0;if(this.cancelNextClick=!1,this.lastClickTime=a.timeStamp,c=this.trackingClickStart,this.trackingClick=!1,this.trackingClickStart=0,deviceIsIOSWithBadTarget&&(f=a.changedTouches[0],g=document.elementFromPoint(f.pageX-window.pageXOffset,f.pageY-window.pageYOffset)||g,g.fastClickScrollParent=this.targetElement.fastClickScrollParent),d=g.tagName.toLowerCase(),"label"===d){if(b=this.findControl(g)){if(this.focus(g),deviceIsAndroid)return!1;g=b}}else if(this.needsFocus(g))return a.timeStamp-c>100||deviceIsIOS&&window.top!==window&&"input"===d?(this.targetElement=null,!1):(this.focus(g),this.sendClick(g,a),deviceIsIOS&&"select"===d||(this.targetElement=null,a.preventDefault()),!1);return deviceIsIOS&&!deviceIsIOS4&&(e=g.fastClickScrollParent,e&&e.fastClickLastScrollTop!==e.scrollTop)?!0:(this.needsClick(g)||(a.preventDefault(),this.sendClick(g,a)),!1)},FastClick.prototype.onTouchCancel=function(){"use strict";this.trackingClick=!1,this.targetElement=null},FastClick.prototype.onMouse=function(a){"use strict";return this.targetElement?a.forwardedTouchEvent?!0:a.cancelable?!this.needsClick(this.targetElement)||this.cancelNextClick?(a.stopImmediatePropagation?a.stopImmediatePropagation():a.propagationStopped=!0,a.stopPropagation(),a.preventDefault(),!1):!0:!0:!0},FastClick.prototype.onClick=function(a){"use strict";var b;return this.trackingClick?(this.targetElement=null,this.trackingClick=!1,!0):"submit"===a.target.type&&0===a.detail?!0:(b=this.onMouse(a),b||(this.targetElement=null),b)},FastClick.prototype.destroy=function(){"use strict";var a=this.layer;deviceIsAndroid&&(a.removeEventListener("mouseover",this.onMouse,!0),a.removeEventListener("mousedown",this.onMouse,!0),a.removeEventListener("mouseup",this.onMouse,!0)),a.removeEventListener("click",this.onClick,!0),a.removeEventListener("touchstart",this.onTouchStart,!1),a.removeEventListener("touchmove",this.onTouchMove,!1),a.removeEventListener("touchend",this.onTouchEnd,!1),a.removeEventListener("touchcancel",this.onTouchCancel,!1)},FastClick.notNeeded=function(a){"use strict";var b,c,d;if("undefined"==typeof window.ontouchstart)return!0;if(c=+(/Chrome\/([0-9]+)/.exec(navigator.userAgent)||[,0])[1]){if(!deviceIsAndroid)return!0;if(b=document.querySelector("meta[name=viewport]")){if(-1!==b.content.indexOf("user-scalable=no"))return!0;if(c>31&&document.documentElement.scrollWidth<=window.outerWidth)return!0}}if(deviceIsBlackBerry10&&(d=navigator.userAgent.match(/Version\/([0-9]*)\.([0-9]*)/),d[1]>=10&&d[2]>=3&&(b=document.querySelector("meta[name=viewport]")))){if(-1!==b.content.indexOf("user-scalable=no"))return!0;if(document.documentElement.scrollWidth<=window.outerWidth)return!0}return"none"===a.style.msTouchAction?!0:!1},FastClick.attach=function(a,b){"use strict";return new FastClick(a,b)},"function"==typeof define&&"object"==typeof define.amd&&define.amd?define(function(){"use strict";return FastClick}):"undefined"!=typeof module&&module.exports?(module.exports=FastClick.attach,module.exports.FastClick=FastClick):window.FastClick=FastClick;
+
+
+/****************************************************************
+	https://github.com/faisalman/ua-parser-js
+****************************************************************/
+(function(window,undefined){"use strict";var EMPTY="",UNKNOWN="?",FUNC_TYPE="function",UNDEF_TYPE="undefined",OBJ_TYPE="object",MAJOR="major",MODEL="model",NAME="name",TYPE="type",VENDOR="vendor",VERSION="version",ARCHITECTURE="architecture",CONSOLE="console",MOBILE="mobile",TABLET="tablet",SMARTTV="smarttv";var util={has:function(str1,str2){return str2.toLowerCase().indexOf(str1.toLowerCase())!==-1},lowerize:function(str){return str.toLowerCase()}};var mapper={rgx:function(){for(var result,i=0,j,k,p,q,matches,match,args=arguments;i<args.length;i+=2){var regex=args[i],props=args[i+1];if(typeof result===UNDEF_TYPE){result={};for(p in props){q=props[p];if(typeof q===OBJ_TYPE){result[q[0]]=undefined}else{result[q]=undefined}}}for(j=k=0;j<regex.length;j++){matches=regex[j].exec(this.getUA());if(!!matches){for(p=0;p<props.length;p++){match=matches[++k];q=props[p];if(typeof q===OBJ_TYPE&&q.length>0){if(q.length==2){if(typeof q[1]==FUNC_TYPE){result[q[0]]=q[1].call(this,match)}else{result[q[0]]=q[1]}}else if(q.length==3){if(typeof q[1]===FUNC_TYPE&&!(q[1].exec&&q[1].test)){result[q[0]]=match?q[1].call(this,match,q[2]):undefined}else{result[q[0]]=match?match.replace(q[1],q[2]):undefined}}else if(q.length==4){result[q[0]]=match?q[3].call(this,match.replace(q[1],q[2])):undefined}}else{result[q]=match?match:undefined}}break}}if(!!matches)break}return result},str:function(str,map){for(var i in map){if(typeof map[i]===OBJ_TYPE&&map[i].length>0){for(var j=0;j<map[i].length;j++){if(util.has(map[i][j],str)){return i===UNKNOWN?undefined:i}}}else if(util.has(map[i],str)){return i===UNKNOWN?undefined:i}}return str}};var maps={browser:{oldsafari:{major:{1:["/8","/1","/3"],2:"/4","?":"/"},version:{"1.0":"/8",1.2:"/1",1.3:"/3","2.0":"/412","2.0.2":"/416","2.0.3":"/417","2.0.4":"/419","?":"/"}}},device:{sprint:{model:{"Evo Shift 4G":"7373KT"},vendor:{HTC:"APA",Sprint:"Sprint"}}},os:{windows:{version:{ME:"4.90","NT 3.11":"NT3.51","NT 4.0":"NT4.0",2000:"NT 5.0",XP:["NT 5.1","NT 5.2"],Vista:"NT 6.0",7:"NT 6.1",8:"NT 6.2",8.1:"NT 6.3",RT:"ARM"}}}};var regexes={browser:[[/(opera\smini)\/((\d+)?[\w\.-]+)/i,/(opera\s[mobiletab]+).+version\/((\d+)?[\w\.-]+)/i,/(opera).+version\/((\d+)?[\w\.]+)/i,/(opera)[\/\s]+((\d+)?[\w\.]+)/i],[NAME,VERSION,MAJOR],[/\s(opr)\/((\d+)?[\w\.]+)/i],[[NAME,"Opera"],VERSION,MAJOR],[/(kindle)\/((\d+)?[\w\.]+)/i,/(lunascape|maxthon|netfront|jasmine|blazer)[\/\s]?((\d+)?[\w\.]+)*/i,/(avant\s|iemobile|slim|baidu)(?:browser)?[\/\s]?((\d+)?[\w\.]*)/i,/(?:ms|\()(ie)\s((\d+)?[\w\.]+)/i,/(rekonq)((?:\/)[\w\.]+)*/i,/(chromium|flock|rockmelt|midori|epiphany|silk|skyfire|ovibrowser|bolt|iron)\/((\d+)?[\w\.-]+)/i],[NAME,VERSION,MAJOR],[/(trident).+rv[:\s]((\d+)?[\w\.]+).+like\sgecko/i],[[NAME,"IE"],VERSION,MAJOR],[/(yabrowser)\/((\d+)?[\w\.]+)/i],[[NAME,"Yandex"],VERSION,MAJOR],[/(comodo_dragon)\/((\d+)?[\w\.]+)/i],[[NAME,/_/g," "],VERSION,MAJOR],[/(chrome|omniweb|arora|[tizenoka]{5}\s?browser)\/v?((\d+)?[\w\.]+)/i],[NAME,VERSION,MAJOR],[/(dolfin)\/((\d+)?[\w\.]+)/i],[[NAME,"Dolphin"],VERSION,MAJOR],[/((?:android.+)crmo|crios)\/((\d+)?[\w\.]+)/i],[[NAME,"Chrome"],VERSION,MAJOR],[/version\/((\d+)?[\w\.]+).+?mobile\/\w+\s(safari)/i],[VERSION,MAJOR,[NAME,"Mobile Safari"]],[/version\/((\d+)?[\w\.]+).+?(mobile\s?safari|safari)/i],[VERSION,MAJOR,NAME],[/webkit.+?(mobile\s?safari|safari)((\/[\w\.]+))/i],[NAME,[MAJOR,mapper.str,maps.browser.oldsafari.major],[VERSION,mapper.str,maps.browser.oldsafari.version]],[/(konqueror)\/((\d+)?[\w\.]+)/i,/(webkit|khtml)\/((\d+)?[\w\.]+)/i],[NAME,VERSION,MAJOR],[/(navigator|netscape)\/((\d+)?[\w\.-]+)/i],[[NAME,"Netscape"],VERSION,MAJOR],[/(swiftfox)/i,/(icedragon|iceweasel|camino|chimera|fennec|maemo\sbrowser|minimo|conkeror)[\/\s]?((\d+)?[\w\.\+]+)/i,/(firefox|seamonkey|k-meleon|icecat|iceape|firebird|phoenix)\/((\d+)?[\w\.-]+)/i,/(mozilla)\/((\d+)?[\w\.]+).+rv\:.+gecko\/\d+/i,/(uc\s?browser|polaris|lynx|dillo|icab|doris|amaya|w3m|netsurf|qqbrowser)[\/\s]?((\d+)?[\w\.]+)/i,/(links)\s\(((\d+)?[\w\.]+)/i,/(gobrowser)\/?((\d+)?[\w\.]+)*/i,/(ice\s?browser)\/v?((\d+)?[\w\._]+)/i,/(mosaic)[\/\s]((\d+)?[\w\.]+)/i],[NAME,VERSION,MAJOR],[/(apple(?:coremedia|))\/((\d+)[\w\._]+)/i,/(coremedia) v((\d+)[\w\._]+)/i],[NAME,VERSION,MAJOR],[/(aqualung|lyssna|bsplayer)\/([\w\.-]+)/i],[NAME,VERSION],[/(ares|ossproxy)\s((\d+)[\w\.-]+)/i],[NAME,VERSION,MAJOR],[/(audacious|audimusicstream|amarok|bass|core|dalvik|gnomemplayer|music on console|nsplayer|psp-internetradioplayer|videos)\/((\d+)[\w\.-]+)/i,/(clementine|music player daemon)\s((\d+)[\w\.-]+)/i,/(lg player|nexplayer)\s((\d+)[\d\.]+)/i,/player\/(nexplayer|lg player)\s((\d+)[\w\.-]+)/i],[NAME,VERSION,MAJOR],[/(nexplayer)\s((\d+)[\w\.-]+)/i],[NAME,VERSION,MAJOR],[/(flrp)\/((\d+)[\w\.-]+)/i],[[NAME,"Flip Player"],VERSION,MAJOR],[/(fstream|nativehost|queryseekspider|ia-archiver|facebookexternalhit)/i],[NAME],[/(gstreamer) souphttpsrc (?:\([^\)]+\)){0,1} libsoup\/((\d+)[\w\.-]+)/i],[NAME,VERSION,MAJOR],[/(htc streaming player)\s[\w_]+\s\/\s((\d+)[\d\.]+)/i,/(java|python-urllib|python-requests|wget|libcurl)\/((\d+)[\w\.-_]+)/i,/(lavf)((\d+)[\d\.]+)/i],[NAME,VERSION,MAJOR],[/(htc_one_s)\/((\d+)[\d\.]+)/i],[[NAME,/_/g," "],VERSION,MAJOR],[/(mplayer)(?:\s|\/)(?:(?:sherpya-){0,1}svn)(?:-|\s)(r\d+(?:-\d+[\w\.-]+){0,1})/i],[NAME,VERSION],[/(mplayer)(?:\s|\/)((\d+)[\w\.-]+)/i,/(mplayer) unknown-((\d+)[\w\.\-]+)/i],[NAME,VERSION,MAJOR],[/(mplayer)/i,/(yourmuze)/i,/(media player classic|nero showtime)/i],[NAME],[/(nero (?:home|scout))\/((\d+)[\w\.-]+)/i],[NAME,VERSION,MAJOR],[/(nokia\d+)\/((\d+)[\w\.-]+)/i],[NAME,VERSION,MAJOR],[/\s(songbird)\/((\d+)[\w\.-]+)/i],[NAME,VERSION,MAJOR],[/(winamp)3 version ((\d+)[\w\.-]+)/i,/(winamp)\s((\d+)[\w\.-]+)/i,/(winamp)mpeg\/((\d+)[\w\.-]+)/i],[NAME,VERSION,MAJOR],[/(ocms-bot|tapinradio|tunein radio|unknown|winamp|inlight radio)/i],[NAME],[/(quicktime|rma|radioapp|radioclientapplication|soundtap|totem|stagefright|streamium)\/((\d+)[\w\.-]+)/i],[NAME,VERSION,MAJOR],[/(smp)((\d+)[\d\.]+)/i],[NAME,VERSION,MAJOR],[/(vlc) media player - version ((\d+)[\w\.]+)/i,/(vlc)\/((\d+)[\w\.-]+)/i,/(xbmc|gvfs|xine|xmms|irapp)\/((\d+)[\w\.-]+)/i,/(foobar2000)\/((\d+)[\d\.]+)/i,/(itunes)\/((\d+)[\d\.]+)/i],[NAME,VERSION,MAJOR],[/(wmplayer)\/((\d+)[\w\.-]+)/i,/(windows-media-player)\/((\d+)[\w\.-]+)/i],[[NAME,/-/g," "],VERSION,MAJOR],[/windows\/((\d+)[\w\.-]+) upnp\/[\d\.]+ dlnadoc\/[\d\.]+ (home media server)/i],[VERSION,MAJOR,[NAME,"Windows"]],[/(com\.riseupradioalarm)\/((\d+)[\d\.]*)/i],[NAME,VERSION,MAJOR],[/(rad.io)\s((\d+)[\d\.]+)/i,/(radio.(?:de|at|fr))\s((\d+)[\d\.]+)/i],[[NAME,"rad.io"],VERSION,MAJOR]],cpu:[[/(?:(amd|x(?:(?:86|64)[_-])?|wow|win)64)[;\)]/i],[[ARCHITECTURE,"amd64"]],[/(ia32(?=;))/i],[[ARCHITECTURE,util.lowerize]],[/((?:i[346]|x)86)[;\)]/i],[[ARCHITECTURE,"ia32"]],[/windows\s(ce|mobile);\sppc;/i],[[ARCHITECTURE,"arm"]],[/((?:ppc|powerpc)(?:64)?)(?:\smac|;|\))/i],[[ARCHITECTURE,/ower/,"",util.lowerize]],[/(sun4\w)[;\)]/i],[[ARCHITECTURE,"sparc"]],[/(ia64(?=;)|68k(?=\))|arm(?=v\d+;)|(?:irix|mips|sparc)(?:64)?(?=;)|pa-risc)/i],[ARCHITECTURE,util.lowerize]],device:[[/\((ipad|playbook);[\w\s\);-]+(rim|apple)/i],[MODEL,VENDOR,[TYPE,TABLET]],[/applecoremedia\/[\w\.]+ \((ipad)/],[MODEL,[VENDOR,"Apple"],[TYPE,TABLET]],[/(apple\s{0,1}tv)/i],[[MODEL,"Apple TV"],[VENDOR,"Apple"]],[/(hp).+(touchpad)/i,/(kindle)\/([\w\.]+)/i,/\s(nook)[\w\s]+build\/(\w+)/i,/(dell)\s(strea[kpr\s\d]*[\dko])/i],[VENDOR,MODEL,[TYPE,TABLET]],[/\((ip[honed|\s\w*]+);.+(apple)/i],[MODEL,VENDOR,[TYPE,MOBILE]],[/\((ip[honed|\s\w*]+);/i],[MODEL,[VENDOR,"Apple"],[TYPE,MOBILE]],[/(blackberry)[\s-]?(\w+)/i,/(blackberry|benq|palm(?=\-)|sonyericsson|acer|asus|dell|huawei|meizu|motorola)[\s_-]?([\w-]+)*/i,/(hp)\s([\w\s]+\w)/i,/(asus)-?(\w+)/i],[VENDOR,MODEL,[TYPE,MOBILE]],[/\((bb10);\s(\w+)/i],[[VENDOR,"BlackBerry"],MODEL,[TYPE,MOBILE]],[/android.+((transfo[prime\s]{4,10}\s\w+|eeepc|slider\s\w+))/i],[[VENDOR,"Asus"],MODEL,[TYPE,TABLET]],[/(sony)\s(tablet\s[ps])/i],[VENDOR,MODEL,[TYPE,TABLET]],[/(nintendo)\s([wids3u]+)/i],[VENDOR,MODEL,[TYPE,CONSOLE]],[/((playstation)\s[3portablevi]+)/i],[[VENDOR,"Sony"],MODEL,[TYPE,CONSOLE]],[/(sprint\s(\w+))/i],[[VENDOR,mapper.str,maps.device.sprint.vendor],[MODEL,mapper.str,maps.device.sprint.model],[TYPE,MOBILE]],[/(htc)[;_\s-]+([\w\s]+(?=\))|\w+)*/i,/(zte)-(\w+)*/i,/(alcatel|geeksphone|huawei|lenovo|nexian|panasonic|(?=;\s)sony)[_\s-]?([\w-]+)*/i],[VENDOR,[MODEL,/_/g," "],[TYPE,MOBILE]],[/\s((milestone|droid(?:[2-4x]|\s(?:bionic|x2|pro|razr))?(:?\s4g)?))[\w\s]+build\//i,/(mot)[\s-]?(\w+)*/i],[[VENDOR,"Motorola"],MODEL,[TYPE,MOBILE]],[/android.+\s((mz60\d|xoom[\s2]{0,2}))\sbuild\//i],[[VENDOR,"Motorola"],MODEL,[TYPE,TABLET]],[/android.+((sch-i[89]0\d|shw-m380s|gt-p\d{4}|gt-n8000|sgh-t8[56]9))/i],[[VENDOR,"Samsung"],MODEL,[TYPE,TABLET]],[/((s[cgp]h-\w+|gt-\w+|galaxy\snexus))/i,/(sam[sung]*)[\s-]*(\w+-?[\w-]*)*/i,/sec-((sgh\w+))/i],[[VENDOR,"Samsung"],MODEL,[TYPE,MOBILE]],[/(sie)-(\w+)*/i],[[VENDOR,"Siemens"],MODEL,[TYPE,MOBILE]],[/(maemo|nokia).*(n900|lumia\s\d+)/i,/(nokia)[\s_-]?([\w-]+)*/i],[[VENDOR,"Nokia"],MODEL,[TYPE,MOBILE]],[/android\s3\.[\s\w-;]{10}((a\d{3}))/i],[[VENDOR,"Acer"],MODEL,[TYPE,TABLET]],[/android\s3\.[\s\w-;]{10}(lg?)-([06cv9]{3,4})/i],[[VENDOR,"LG"],MODEL,[TYPE,TABLET]],[/((nexus\s[45]))/i,/(lg)[e;\s-\/]+(\w+)*/i],[[VENDOR,"LG"],MODEL,[TYPE,MOBILE]],[/android.+((ideatab[a-z0-9\-\s]+))/i],[[VENDOR,"Lenovo"],MODEL,[TYPE,TABLET]],[/(lg) netcast\.tv/i],[VENDOR,[TYPE,SMARTTV]],[/(mobile|tablet);.+rv\:.+gecko\//i],[TYPE,VENDOR,MODEL]],engine:[[/(presto)\/([\w\.]+)/i,/(webkit|trident|netfront|netsurf|amaya|lynx|w3m)\/([\w\.]+)/i,/(khtml|tasman|links)[\/\s]\(?([\w\.]+)/i,/(icab)[\/\s]([23]\.[\d\.]+)/i],[NAME,VERSION],[/rv\:([\w\.]+).*(gecko)/i],[VERSION,NAME]],os:[[/microsoft\s(windows)\s(vista|xp)/i],[NAME,VERSION],[/(windows)\snt\s6\.2;\s(arm)/i,/(windows\sphone(?:\sos)*|windows\smobile|windows)[\s\/]?([ntce\d\.\s]+\w)/i],[NAME,[VERSION,mapper.str,maps.os.windows.version]],[/(win(?=3|9|n)|win\s9x\s)([nt\d\.]+)/i],[[NAME,"Windows"],[VERSION,mapper.str,maps.os.windows.version]],[/\((bb)(10);/i],[[NAME,"BlackBerry"],VERSION],[/(blackberry)\w*\/?([\w\.]+)*/i,/(tizen)\/([\w\.]+)/i,/(android|webos|palm\os|qnx|bada|rim\stablet\sos|meego)[\/\s-]?([\w\.]+)*/i],[NAME,VERSION],[/(symbian\s?os|symbos|s60(?=;))[\/\s-]?([\w\.]+)*/i],[[NAME,"Symbian"],VERSION],[/mozilla.+\(mobile;.+gecko.+firefox/i],[[NAME,"Firefox OS"],VERSION],[/(nintendo|playstation)\s([wids3portablevu]+)/i,/(mint)[\/\s\(]?(\w+)*/i,/(joli|[kxln]?ubuntu|debian|[open]*suse|gentoo|arch|slackware|fedora|mandriva|centos|pclinuxos|redhat|zenwalk)[\/\s-]?([\w\.-]+)*/i,/(hurd|linux)\s?([\w\.]+)*/i,/(gnu)\s?([\w\.]+)*/i],[NAME,VERSION],[/(cros)\s[\w]+\s([\w\.]+\w)/i],[[NAME,"Chromium OS"],VERSION],[/(sunos)\s?([\w\.]+\d)*/i],[[NAME,"Solaris"],VERSION],[/\s([frentopc-]{0,4}bsd|dragonfly)\s?([\w\.]+)*/i],[NAME,VERSION],[/(ip[honead]+)(?:.*os\s*([\w]+)*\slike\smac|;\sopera)/i],[[NAME,"iOS"],[VERSION,/_/g,"."]],[/(mac\sos\sx)\s?([\w\s\.]+\w)*/i],[NAME,[VERSION,/_/g,"."]],[/(haiku)\s(\w+)/i,/(aix)\s((\d)(?=\.|\)|\s)[\w\.]*)*/i,/(macintosh|mac(?=_powerpc)|plan\s9|minix|beos|os\/2|amigaos|morphos|risc\sos)/i,/(unix)\s?([\w\.]+)*/i],[NAME,VERSION]]};var UAParser=function(uastring){var ua=uastring||(window&&window.navigator&&window.navigator.userAgent?window.navigator.userAgent:EMPTY);if(!(this instanceof UAParser)){return new UAParser(uastring).getResult()}this.getBrowser=function(){return mapper.rgx.apply(this,regexes.browser)};this.getCPU=function(){return mapper.rgx.apply(this,regexes.cpu)};this.getDevice=function(){return mapper.rgx.apply(this,regexes.device)};this.getEngine=function(){return mapper.rgx.apply(this,regexes.engine)};this.getOS=function(){return mapper.rgx.apply(this,regexes.os)};this.getResult=function(){return{ua:this.getUA(),browser:this.getBrowser(),engine:this.getEngine(),os:this.getOS(),device:this.getDevice(),cpu:this.getCPU()}};this.getUA=function(){return ua};this.setUA=function(uastring){ua=uastring;return this};this.setUA(ua)};if(typeof exports!==UNDEF_TYPE){if(typeof module!==UNDEF_TYPE&&module.exports){exports=module.exports=UAParser}exports.UAParser=UAParser}else{window.UAParser=UAParser;if(typeof define===FUNC_TYPE&&define.amd){define(function(){return UAParser})}if(typeof window.jQuery!==UNDEF_TYPE){var $=window.jQuery;var parser=new UAParser;$.ua=parser.getResult();$.ua.get=function(){return parser.getUA()};$.ua.set=function(uastring){parser.setUA(uastring);var result=parser.getResult();for(var prop in result){$.ua[prop]=result[prop]}}}}})(this);
+
+
+/* Modernizr 2.7.1 (Custom Build) | MIT & BSD
+ * Build: http://modernizr.com/download/#-backgroundsize-borderradius-boxshadow-multiplebgs-opacity-rgba-generatedcontent-cssgradients-csstransitions-svg-touch-mq-cssclasses-teststyles-testprop-testallprops-prefixes-domprefixes-css_boxsizing-css_displaytable-css_mediaqueries-url_data_uri-load
+ */
+;window.Modernizr=function(a,b,c){function C(a){j.cssText=a}function D(a,b){return C(n.join(a+";")+(b||""))}function E(a,b){return typeof a===b}function F(a,b){return!!~(""+a).indexOf(b)}function G(a,b){for(var d in a){var e=a[d];if(!F(e,"-")&&j[e]!==c)return b=="pfx"?e:!0}return!1}function H(a,b,d){for(var e in a){var f=b[a[e]];if(f!==c)return d===!1?a[e]:E(f,"function")?f.bind(d||b):f}return!1}function I(a,b,c){var d=a.charAt(0).toUpperCase()+a.slice(1),e=(a+" "+p.join(d+" ")+d).split(" ");return E(b,"string")||E(b,"undefined")?G(e,b):(e=(a+" "+q.join(d+" ")+d).split(" "),H(e,b,c))}var d="2.7.1",e={},f=!0,g=b.documentElement,h="modernizr",i=b.createElement(h),j=i.style,k,l=":)",m={}.toString,n=" -webkit- -moz- -o- -ms- ".split(" "),o="Webkit Moz O ms",p=o.split(" "),q=o.toLowerCase().split(" "),r={svg:"http://www.w3.org/2000/svg"},s={},t={},u={},v=[],w=v.slice,x,y=function(a,c,d,e){var f,i,j,k,l=b.createElement("div"),m=b.body,n=m||b.createElement("body");if(parseInt(d,10))while(d--)j=b.createElement("div"),j.id=e?e[d]:h+(d+1),l.appendChild(j);return f=["&#173;",'<style id="s',h,'">',a,"</style>"].join(""),l.id=h,(m?l:n).innerHTML+=f,n.appendChild(l),m||(n.style.background="",n.style.overflow="hidden",k=g.style.overflow,g.style.overflow="hidden",g.appendChild(n)),i=c(l,a),m?l.parentNode.removeChild(l):(n.parentNode.removeChild(n),g.style.overflow=k),!!i},z=function(b){var c=a.matchMedia||a.msMatchMedia;if(c)return c(b).matches;var d;return y("@media "+b+" { #"+h+" { position: absolute; } }",function(b){d=(a.getComputedStyle?getComputedStyle(b,null):b.currentStyle)["position"]=="absolute"}),d},A={}.hasOwnProperty,B;!E(A,"undefined")&&!E(A.call,"undefined")?B=function(a,b){return A.call(a,b)}:B=function(a,b){return b in a&&E(a.constructor.prototype[b],"undefined")},Function.prototype.bind||(Function.prototype.bind=function(b){var c=this;if(typeof c!="function")throw new TypeError;var d=w.call(arguments,1),e=function(){if(this instanceof e){var a=function(){};a.prototype=c.prototype;var f=new a,g=c.apply(f,d.concat(w.call(arguments)));return Object(g)===g?g:f}return c.apply(b,d.concat(w.call(arguments)))};return e}),s.touch=function(){var c;return"ontouchstart"in a||a.DocumentTouch&&b instanceof DocumentTouch?c=!0:y(["@media (",n.join("touch-enabled),("),h,")","{#modernizr{top:9px;position:absolute}}"].join(""),function(a){c=a.offsetTop===9}),c},s.rgba=function(){return C("background-color:rgba(150,255,150,.5)"),F(j.backgroundColor,"rgba")},s.multiplebgs=function(){return C("background:url(https://),url(https://),red url(https://)"),/(url\s*\(.*?){3}/.test(j.background)},s.backgroundsize=function(){return I("backgroundSize")},s.borderradius=function(){return I("borderRadius")},s.boxshadow=function(){return I("boxShadow")},s.opacity=function(){return D("opacity:.55"),/^0.55$/.test(j.opacity)},s.cssgradients=function(){var a="background-image:",b="gradient(linear,left top,right bottom,from(#9f9),to(white));",c="linear-gradient(left top,#9f9, white);";return C((a+"-webkit- ".split(" ").join(b+a)+n.join(c+a)).slice(0,-a.length)),F(j.backgroundImage,"gradient")},s.csstransitions=function(){return I("transition")},s.generatedcontent=function(){var a;return y(["#",h,"{font:0/0 a}#",h,':after{content:"',l,'";visibility:hidden;font:3px/1 a}'].join(""),function(b){a=b.offsetHeight>=3}),a},s.svg=function(){return!!b.createElementNS&&!!b.createElementNS(r.svg,"svg").createSVGRect};for(var J in s)B(s,J)&&(x=J.toLowerCase(),e[x]=s[J](),v.push((e[x]?"":"no-")+x));return e.addTest=function(a,b){if(typeof a=="object")for(var d in a)B(a,d)&&e.addTest(d,a[d]);else{a=a.toLowerCase();if(e[a]!==c)return e;b=typeof b=="function"?b():b,typeof f!="undefined"&&f&&(g.className+=" "+(b?"":"no-")+a),e[a]=b}return e},C(""),i=k=null,e._version=d,e._prefixes=n,e._domPrefixes=q,e._cssomPrefixes=p,e.mq=z,e.testProp=function(a){return G([a])},e.testAllProps=I,e.testStyles=y,g.className=g.className.replace(/(^|\s)no-js(\s|$)/,"$1$2")+(f?" js "+v.join(" "):""),e}(this,this.document),function(a,b,c){function d(a){return"[object Function]"==o.call(a)}function e(a){return"string"==typeof a}function f(){}function g(a){return!a||"loaded"==a||"complete"==a||"uninitialized"==a}function h(){var a=p.shift();q=1,a?a.t?m(function(){("c"==a.t?B.injectCss:B.injectJs)(a.s,0,a.a,a.x,a.e,1)},0):(a(),h()):q=0}function i(a,c,d,e,f,i,j){function k(b){if(!o&&g(l.readyState)&&(u.r=o=1,!q&&h(),l.onload=l.onreadystatechange=null,b)){"img"!=a&&m(function(){t.removeChild(l)},50);for(var d in y[c])y[c].hasOwnProperty(d)&&y[c][d].onload()}}var j=j||B.errorTimeout,l=b.createElement(a),o=0,r=0,u={t:d,s:c,e:f,a:i,x:j};1===y[c]&&(r=1,y[c]=[]),"object"==a?l.data=c:(l.src=c,l.type=a),l.width=l.height="0",l.onerror=l.onload=l.onreadystatechange=function(){k.call(this,r)},p.splice(e,0,u),"img"!=a&&(r||2===y[c]?(t.insertBefore(l,s?null:n),m(k,j)):y[c].push(l))}function j(a,b,c,d,f){return q=0,b=b||"j",e(a)?i("c"==b?v:u,a,b,this.i++,c,d,f):(p.splice(this.i++,0,a),1==p.length&&h()),this}function k(){var a=B;return a.loader={load:j,i:0},a}var l=b.documentElement,m=a.setTimeout,n=b.getElementsByTagName("script")[0],o={}.toString,p=[],q=0,r="MozAppearance"in l.style,s=r&&!!b.createRange().compareNode,t=s?l:n.parentNode,l=a.opera&&"[object Opera]"==o.call(a.opera),l=!!b.attachEvent&&!l,u=r?"object":l?"script":"img",v=l?"script":u,w=Array.isArray||function(a){return"[object Array]"==o.call(a)},x=[],y={},z={timeout:function(a,b){return b.length&&(a.timeout=b[0]),a}},A,B;B=function(a){function b(a){var a=a.split("!"),b=x.length,c=a.pop(),d=a.length,c={url:c,origUrl:c,prefixes:a},e,f,g;for(f=0;f<d;f++)g=a[f].split("="),(e=z[g.shift()])&&(c=e(c,g));for(f=0;f<b;f++)c=x[f](c);return c}function g(a,e,f,g,h){var i=b(a),j=i.autoCallback;i.url.split(".").pop().split("?").shift(),i.bypass||(e&&(e=d(e)?e:e[a]||e[g]||e[a.split("/").pop().split("?")[0]]),i.instead?i.instead(a,e,f,g,h):(y[i.url]?i.noexec=!0:y[i.url]=1,f.load(i.url,i.forceCSS||!i.forceJS&&"css"==i.url.split(".").pop().split("?").shift()?"c":c,i.noexec,i.attrs,i.timeout),(d(e)||d(j))&&f.load(function(){k(),e&&e(i.origUrl,h,g),j&&j(i.origUrl,h,g),y[i.url]=2})))}function h(a,b){function c(a,c){if(a){if(e(a))c||(j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}),g(a,j,b,0,h);else if(Object(a)===a)for(n in m=function(){var b=0,c;for(c in a)a.hasOwnProperty(c)&&b++;return b}(),a)a.hasOwnProperty(n)&&(!c&&!--m&&(d(j)?j=function(){var a=[].slice.call(arguments);k.apply(this,a),l()}:j[n]=function(a){return function(){var b=[].slice.call(arguments);a&&a.apply(this,b),l()}}(k[n])),g(a[n],j,b,n,h))}else!c&&l()}var h=!!a.test,i=a.load||a.both,j=a.callback||f,k=j,l=a.complete||f,m,n;c(h?a.yep:a.nope,!!i),i&&c(i)}var i,j,l=this.yepnope.loader;if(e(a))g(a,0,l,0);else if(w(a))for(i=0;i<a.length;i++)j=a[i],e(j)?g(j,0,l,0):w(j)?B(j):Object(j)===j&&h(j,l);else Object(a)===a&&h(a,l)},B.addPrefix=function(a,b){z[a]=b},B.addFilter=function(a){x.push(a)},B.errorTimeout=1e4,null==b.readyState&&b.addEventListener&&(b.readyState="loading",b.addEventListener("DOMContentLoaded",A=function(){b.removeEventListener("DOMContentLoaded",A,0),b.readyState="complete"},0)),a.yepnope=k(),a.yepnope.executeStack=h,a.yepnope.injectJs=function(a,c,d,e,i,j){var k=b.createElement("script"),l,o,e=e||B.errorTimeout;k.src=a;for(o in d)k.setAttribute(o,d[o]);c=j?h:c||f,k.onreadystatechange=k.onload=function(){!l&&g(k.readyState)&&(l=1,c(),k.onload=k.onreadystatechange=null)},m(function(){l||(l=1,c(1))},e),i?k.onload():n.parentNode.insertBefore(k,n)},a.yepnope.injectCss=function(a,c,d,e,g,i){var e=b.createElement("link"),j,c=i?h:c||f;e.href=a,e.rel="stylesheet",e.type="text/css";for(j in d)e.setAttribute(j,d[j]);g||(n.parentNode.insertBefore(e,n),m(c,0))}}(this,document),Modernizr.load=function(){yepnope.apply(window,[].slice.call(arguments,0))},Modernizr.addTest("mediaqueries",Modernizr.mq("only all")),Modernizr.addTest("display-table",function(){var a=window.document,b=a.documentElement,c=a.createElement("div"),d=a.createElement("div"),e=a.createElement("div"),f;return c.style.cssText="display: table",d.style.cssText=e.style.cssText="display: table-cell; padding: 10px",c.appendChild(d),c.appendChild(e),b.insertBefore(c,b.firstChild),f=d.offsetLeft<e.offsetLeft,b.removeChild(c),f}),Modernizr.addTest("boxsizing",function(){return Modernizr.testAllProps("boxSizing")&&(document.documentMode===undefined||document.documentMode>7)}),function(){var a=new Image;a.onerror=function(){Modernizr.addTest("datauri",function(){return!1})},a.onload=function(){Modernizr.addTest("datauri",function(){return a.width==1&&a.height==1})},a.src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="}();
+</script>
+
+<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<link rel="stylesheet" type="text/css" href="files/css/index.css" media="all">
+
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXX']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+</head>
+
+<body>
+
+<div class="container" id="specificity">
+
+<header class="header">
+	<div class="container-inside">
+		<h1><a href="/"><span>H1 Header</span></a></h1>
+	</div>
+</header> <!-- .header -->
+
+<nav id="main-nav" class="nav">
+	<div class="container-inside">
+		<a href="#" class="nav-view event-nav-view" title="Close"><span>Close</span></a>
+		<ul class="nav-list group">
+			<li class="selected has-children" aria-haspopup="true"><a href="/">Nav Item</a>
+				<ul>
+					<li class="hide"><a href="/">Overview</a></li>
+					<li class="first-child"><a href="/">Nav Item</a></li>
+					<li><a href="/">Nav Item</a></li>
+					<li class="last-child"><a href="/">Nav Item</a></li>
+				</ul>
+			</li>
+			<li class="has-children" aria-haspopup="true"><a href="/">Nav Item</a>
+				<ul>
+					<li class="hide"><a href="/">Overview</a></li>
+					<li class="first-child"><a href="/">Nav Item</a></li>
+					<li><a href="/">Nav Item</a></li>
+					<li class="last-child"><a href="/">Nav Item</a></li>
+				</ul>
+			</li>
+			<li class="has-children" aria-haspopup="true"><a href="/">Nav Item</a>
+				<ul>
+					<li class="hide"><a href="/">Overview</a></li>
+					<li class="first-child"><a href="/">Nav Item</a></li>
+					<li><a href="/">Nav Item</a></li>
+					<li class="last-child"><a href="/">Nav Item</a></li>
+				</ul>
+			</li>
+			<li class="has-children" aria-haspopup="true"><a href="/">Nav Item</a>
+				<ul>
+					<li class="hide"><a href="/">Overview</a></li>
+					<li class="first-child"><a href="/">Nav Item</a></li>
+					<li><a href="/">Nav Item</a></li>
+					<li class="last-child"><a href="/">Nav Item</a></li>
+				</ul>
+			</li>
+			<li><a href="/">Nav Item</a></li>
+		</ul>
+	</div>
+</nav> <!-- .nav -->
+
+<section class="content">
+	<div class="container-inside">	
+		<div class="padding-4x-all">
+			
+			<!--
+			<div class="flexslider loading">
+				<ul class="slides">
+					<li><img src="http://flexslider.woothemes.com/images/kitchen_adventurer_cheesecake_brownie.jpg"></li>
+					<li><img src="http://flexslider.woothemes.com/images/kitchen_adventurer_lemon.jpg"></li>
+					<li><img src="http://flexslider.woothemes.com/images/kitchen_adventurer_donut.jpg"></li>
+					<li><img src="http://flexslider.woothemes.com/images/kitchen_adventurer_caramel.jpg"></li>
+				</ul>
+			</div>
+			
+			
+			Rich Snippets/Schema.org/Microformats
+			
+			Testing Tool: http://www.google.com/webmasters/tools/richsnippets
+			
+			Logo Example - http://googlewebmastercentral.blogspot.com/2013/05/using-schemaorg-markup-for-organization.html
+			<div itemscope itemtype="http://schema.org/Organization">
+				<a itemprop="url" href="http://www.example.com/">Home</a>
+				<img itemprop="logo" src="http://www.example.com/logo.png">
+			</div>
+			-->
+
+			<h2>H2 Page Title</h2>
+
+			<p class="dropcap">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed tempus neque id elit. In fermentum est non est. Duis vel enim sit amet lectus pellentesque facilisis. Maecenas a risus. Maecenas consequat. Integer ipsum pede, commodo vitae, gravida vulputate, porta sit amet, urna. Nullam molestie sapien a dolor. Nam mauris ligula, eleifend vel, dictum quis, elementum sed, elit. Curabitur blandit lobortis libero. In sem. Pellentesque nonummy vulputate felis. <a href="#target">Anchor Target</a></p>
+
+			<h3>H3 Head</h3>
+
+			<p>Posuere rhoncus augue. Etiam in libero eu nisi auctor. Suspendisse a mauris. Nulla ac eros. Mauris orci diam, elementum id, mattis et, consequat lobortis, lorem. Mauris nisi. Fusce nibh. Duis bibendum auctor massa. Mauris mauris dui, placerat sed, lacinia nec, vehicula egestas, eros. Vivamus interdum velit at diam. Nulla ac elit. Maecenas nibh nisi, pulvinar sit amet, volutpat quis, suscipit eu, sem. Aliquam erat volutpat. Curabitur ultricies.</p>
+
+			<p>Posuere rhoncus augue. Etiam in libero eu nisi auctor. Suspendisse a mauris. Nulla ac eros. Mauris orci diam, elementum id, mattis et, consequat lobortis, lorem. Mauris nisi. Fusce nibh. Duis bibendum auctor massa. Mauris mauris dui, placerat sed, lacinia nec, vehicula egestas, eros. Vivamus interdum velit at diam. Nulla ac elit. Maecenas nibh nisi, pulvinar sit amet, volutpat quis, suscipit eu, sem. Aliquam erat volutpat. Curabitur ultricies.</p>	
+
+			<h4>H4 Subhead</h4>
+
+			<p id="target">Tempor <a href="/" accesskey="5">access key</a> aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Suspendisse dolor urna, rhoncus ut, tincidunt eget, faucibus ac, dolor. Donec dolor urna, suscipit sed, sodales in, viverra at, eros. Fusce elementum. Aliquam erat volutpat. Maecenas fringilla. Praesent interdum blandit leo. Praesent magna. Sed quis libero in justo adipiscing semper. Etiam enim eros, tincidunt ut, auctor sed, facilisis quis, augue <a href="http://www.nealgrosskopf.com">External Links</a>.</p>
+
+			<blockquote>
+				<p>Blockquote: Etiam mauris tellus, condimentum id, dignissim sit amet, tempor at, nisi. Donec orci pede, accumsan in, posuere ac, vulputate in, lectus. Suspendisse cursus, libero id dictum elementum, sem sapien volutpat ante, at faucibus sem leo eget eros.</p>
+			</blockquote>
+
+			<q>Q: Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam pellentesque convallis lectus. Cras volutpat tortor in eros. Nam et nulla a tortor aliquam sollicitudin. Fusce hendrerit neque eu lacus. Morbi est. Suspendisse nisl.</q>
+
+			
+			<div class="hr"><hr></div>
+			
+			<ul class="columns columns-3 full-width-image-children">
+				<li class="column-row">
+					<div class="event-ajax-onload" id="ajax-1" data-ajax-url="/files/ajax/posts.php" 
+					data-merge-parameters='
+					{
+						"page": "0", 
+						"count": "1", 
+						"view": "linear",
+						"taxonomy": "category", 
+						"term": "residential"
+					}'></div>
+				</li>
+				<li>
+					<div class="event-ajax-onload" id="ajax-2" data-ajax-url="/files/ajax/posts.php" 
+					data-merge-parameters='
+					{
+						"page": "0", 
+						"count": "1", 
+						"view": "linear",
+						"taxonomy": "category", 
+						"term": "residential"
+					}'></div>
+					
+					<a href="#loadmore" class="event-ajax-load" data-ajax-url="/files/ajax/posts.php" data-ajax-target="#ajax-2" data-ajax-append="1">Load More #2</a>
+				</li>
+				<li>
+					<div id="ajax-3"></div>
+					
+					<a href="#loadmore" class="event-ajax-load" data-ajax-url="/files/ajax/posts.php" data-ajax-target="#ajax-3" data-merge-parameters='
+					{
+						"page": "0", 
+						"count": "1", 
+						"view": "linear",
+						"taxonomy": "category", 
+						"term": "residential"
+					}'
+					>Replace #3</a>
+					
+					<a href="#loadmore" class="event-ajax-load" data-ajax-url="/files/ajax/posts.php" data-ajax-target="#ajax-3" data-ajax-append="1">Load More #3</a>		
+				</li>
+			</ul>
+
+			<div class="hr"><hr></div>
+
+			<p><a href="#" class="button">a.button</a>
+			<button class="button">button.button</button></p>
+			
+			<p><a href="#" class="button" data-theme="black" tabindex="0">.button[data-theme=black]</a> <a href="#" class="button" data-theme="red" tabindex="0">.button[data-theme=red]</a></p>
+			
+			
+			<p><a href="#" class="button" data-theme="black" data-icon-position="left" tabindex="0">.button[icon-position=left]</a>
+			<a href="#" class="button" data-theme="black" data-icon-position="right" tabindex="0">.button[icon-position=right]</a>
+			<a href="#" class="button" data-theme="black" data-icon-position="alone" tabindex="0"></a></p>
+			
+			
+			<p><a href="#" class="button" data-theme="black" data-icon-position="left" data-icon-effect="jump" tabindex="0">.button[data-icon-effect=jump]</a>
+			<a href="#" class="button" data-theme="black" data-icon-position="left" data-icon-effect="drop-fade" tabindex="0">.button[data-icon-effect=drop-fade]</a>
+			<a href="#" class="button" data-theme="black" data-icon-position="left" data-icon-effect="raise-fade" tabindex="0">.button[data-icon-effect=raise-fade]</a>
+			<a href="#" class="button" data-theme="black" data-icon-position="left" data-icon-effect="shake" tabindex="0">.button[data-icon-effect=shake]</a></p>
+			
+			
+			<p><a href="#" class="button event-active" data-theme="black" data-icon-position="left" data-icon-effect="drop-stay" tabindex="0">.button[data-icon-effect=drop-stay]</a>
+			<a href="#" class="button event-active" data-theme="black" data-icon-position="left" data-icon-effect="spin-stay" tabindex="0">.button[data-icon-effect=spin-stay]</a></p>
+			
+			<div class="hr"><hr></div>
+			
+			<div class="open hide example-1">panel: open</div>
+			<div class="close visible example-2">panel: close</div>
+			<p><a href="#open-close" class="event-panel-toggle" data-panel-open-target=".open" data-panel-close-target=".close">Open &amp; Close</a></p>
+			
+			<div class="only-close example-1">panel: close only</div>
+			<p><a href="#close" class="event-panel-toggle" data-panel-close-target=".only-close">Close</a></p>
+			
+			<div class="only-open hide example-1">panel: open only</div>
+			<p><a href="#open" class="event-panel-toggle" data-panel-open-target=".only-open" data-panel-close-target="">Open</a></p>
+			
+			<div class="enable-video-container">
+				<a href="http://www.youtube.com/embed/Pqp5wVl2RkY?autoplay=1" data-height="394" data-width="700" class="enable-video event-enable-video new-window-ignore"></a>
+				<img src="http://i1.ytimg.com/vi/Pqp5wVl2RkY/hqdefault.jpg" class="enable-video-preview" alt="Play Video">
+			</div>
+
+			<div class="accordion-group multiple default-theme default-margin">
+				<ul class="tabs reset group">
+					<li class="selected"><a href="#panel-1">Tab Item 1</a></li>
+					<li><a href="#panel-2">Tab Item 2</a></li>
+					<li><a href="#panel-3">Tab Item 3</a></li>
+				</ul>
+
+				<dl class="accordion reset">
+					<dt class="selected"><a href="#panel-1">Accordion Item 1</a></dt>
+					<dd class="selected">
+						<p>1 Posuere rhoncus augue. Etiam in libero eu nisi auctor. Suspendisse a mauris. Nulla ac eros. Mauris orci diam, elementum id, mattis et, consequat lobortis, lorem. Mauris nisi. Fusce nibh. Duis bibendum auctor massa. Mauris mauris dui, placerat sed, lacinia nec, vehicula egestas, eros. Vivamus interdum velit at diam. Nulla ac elit. Maecenas nibh nisi, pulvinar sit amet, volutpat quis, suscipit eu, sem. Aliquam erat volutpat. Curabitur ultricies.</p>
+					</dd>
+					<dt><a href="#panel-2">Accordion Item 2</a></dt>
+					<dd>
+						<p>2 Posuere rhoncus augue. Etiam in libero eu nisi auctor. Suspendisse a mauris. Nulla ac eros. Mauris orci diam, elementum id, mattis et, consequat lobortis, lorem. Mauris nisi. Fusce nibh. Duis bibendum auctor massa. Mauris mauris dui, placerat sed, lacinia nec, vehicula egestas, eros. Vivamus interdum velit at diam. Nulla ac elit. Maecenas nibh nisi, pulvinar sit amet, volutpat quis, suscipit eu, sem. Aliquam erat volutpat. Curabitur ultricies.</p>
+						<br><br><br><br><br><br><br><br><br>
+					</dd>
+					<dt><a href="#panel-3">Accordion Item 3</a></dt>
+					<dd>
+						<p>3 Posuere rhoncus augue. Etiam in libero eu nisi auctor. Suspendisse a mauris. Nulla ac eros. Mauris orci diam, elementum id, mattis et, consequat lobortis, lorem. Mauris nisi. Fusce nibh. Duis bibendum auctor massa. Mauris mauris dui, placerat sed, lacinia nec, vehicula egestas, eros. Vivamus interdum velit at diam. Nulla ac elit. Maecenas nibh nisi, pulvinar sit amet, volutpat quis, suscipit eu, sem. Aliquam erat volutpat. Curabitur ultricies.</p>
+					</dd>
+				</dl>
+			</div>
+
+			<div class="accordion-group default-theme default-margin">
+				<ul class="tabs reset group">
+					<li class="selected"><a href="#panel-1">Tab Item 1</a></li>
+					<li><a href="#panel-2">Tab Item 2</a></li>
+					<li><a href="#panel-3">Tab Item 3</a></li>
+				</ul>
+
+				<dl class="accordion reset">
+					<dt class="selected"><a href="#panel-1">Accordion Item 1</a></dt>
+					<dd class="selected">
+						<div class="accordion-group default-margin">
+							<ul class="tabs reset group">
+								<li class="selected"><a href="#panel-1a">Nested Item 1</a></li>
+								<li><a href="#panel-2a">Nested Item 2</a></li>
+							</ul>
+							
+							<dl class="accordion reset">
+								<dt class="selected"><a href="#panel-1a">Nested Item 1</a></dt>
+								<dd class="selected">
+									<p>Nested</p>
+								</dd>
+								<dt><a href="#panel-2a">Nested Item 2</a></dt>
+								<dd>
+									<p>Nested</p>
+								</dd>
+							</dl>
+						</div>
+					</dd>
+					<dt><a href="#panel-2">Accordion Item 2</a></dt>
+					<dd>
+						<p>2 Posuere rhoncus augue. Etiam in libero eu nisi auctor. Suspendisse a mauris. Nulla ac eros. Mauris orci diam, elementum id, mattis et, consequat lobortis, lorem. Mauris nisi. Fusce nibh. Duis bibendum auctor massa. Mauris mauris dui, placerat sed, lacinia nec, vehicula egestas, eros. Vivamus interdum velit at diam. Nulla ac elit. Maecenas nibh nisi, pulvinar sit amet, volutpat quis, suscipit eu, sem. Aliquam erat volutpat. Curabitur ultricies.</p>
+						<br><br><br><br><br><br><br><br><br>
+					</dd>
+					<dt><a href="#panel-3">Accordion Item 3</a></dt>
+					<dd>
+						<p>3 Posuere rhoncus augue. Etiam in libero eu nisi auctor. Suspendisse a mauris. Nulla ac eros. Mauris orci diam, elementum id, mattis et, consequat lobortis, lorem. Mauris nisi. Fusce nibh. Duis bibendum auctor massa. Mauris mauris dui, placerat sed, lacinia nec, vehicula egestas, eros. Vivamus interdum velit at diam. Nulla ac elit. Maecenas nibh nisi, pulvinar sit amet, volutpat quis, suscipit eu, sem. Aliquam erat volutpat. Curabitur ultricies.</p>
+					</dd>
+				</dl>
+			</div>
+
+			<div class="hr"><hr></div>
+
+			<ul class="columns columns-2">
+				<li class="column-row example-1">columns-2</li>
+				<li class="example-1">columns-2</li>
+			</ul>
+
+			<div class="hr"><hr></div>
+
+			<ul class="columns columns-3">
+				<li class="column-row example-1">columns-3</li>
+				<li class="example-1">columns-3</li>
+				<li class="example-1">columns-3</li>
+			</ul>
+		
+			<div class="hr"><hr></div>
+		
+			<ul class="columns columns-4">
+				<li class="column-row example-1">columns-4</li>
+				<li class="example-1">columns-4</li>
+				<li class="example-1">columns-4</li>
+				<li class="example-1">columns-4</li>
+			</ul>
+
+			<div class="hr"><hr></div>
+		
+			<ul class="columns columns-3 equal-columns">
+				<li class="column-row example-1">equal height<br>equal height<br>equal height</li>
+				<li class="example-1">equal height<br>equal height</li>
+				<li class="example-1">equal height</li>
+			</ul>
+
+			<br>
+			
+			<div class="fixed-fluid">
+				<div class="fluid-wrapper">
+					<div class="fluid example-2">fluid</div>
+				</div>
+				<div class="fixed example-1">fixed</div>
+			</div>
+
+			<br>
+
+			<div class="fluid-fixed">
+				<div class="fluid-wrapper">
+					<div class="fluid example-1">fluid</div>
+				</div>
+				<div class="fixed example-2">fixed</div>
+			</div>
+
+			<br>
+
+			<div class="fixed-fluid-fixed">
+				<div class="fluid-wrapper">
+					<div class="fluid example-2">fluid</div>
+				</div>
+				<div class="fixed-left example-1">fixed-left</div>
+				<div class="fixed-right example-3">fixed-right</div>
+			</div>
+
+			<br>
+
+			<div class="hr"><hr></div>
+
+			<p class="success">Success message</p>
+
+			<p class="notice">Notice message</p>
+
+			<p class="error">Error Message</p>
+
+			<address>Address</address>
+
+			<p>
+			<b>Bold</b>
+			<strong>Strong</strong>
+			<i>Italic</i>
+			<em>Emphasis</em>
+			<ins>Ins</ins>
+			<del>Del</del>
+			<sup>Sup</sup>
+			<sub>Sub</sub>
+			<abbr title="Abbreviation">Abbreviation</abbr>
+			</p>
+
+			<ul>
+				<li><a href="http://www.nealgrosskopf.com/sites/dev/template/default.html">HTML/CSS Template</a></li>
+				<li><a href="http://www.nealgrosskopf.com/sites/dev/template/horizontal_css_menu.html">Horizontal CSS Menu</a></li>
+				<li><a href="http://www.nealgrosskopf.com/sites/dev/template/vertical_css_menu.html">Vertical CSS Menu</a></li>
+			</ul>
+
+			<ol>
+				<li>Ordered List</li>
+				<li>Ordered List</li>
+				<li>Ordered List</li>
+			</ol>
+		
+			<dl>
+				<dt>Definition List Title</dt>
+				<dd>Definition List Item</dd>
+				<dd>Definition List Item</dd>
+				<dd>Definition List Item</dd>
+			</dl>
+
+			<code>
+			Code Block
+			Code Block
+			Code Block
+			</code>
+
+			<div class="hr"><hr></div>
+
+			<table class="responsive-50">
+			<caption>Caption</caption>
+			<thead>
+			<tr>
+				<th>Heading</th>
+				<th>Heading</th>
+				<th>Heading</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr class="even">
+				<td>Cell</td>
+				<td>Cell</td>
+				<td>Cell</td>
+			</tr><tr class="odd">
+				<td>Cell</td>
+				<td>Cell</td>
+				<td>Cell</td>
+			</tr><tr class="even">
+				<td>Cell</td>
+				<td>Cell</td>
+				<td>Cell</td>
+			</tr><tr class="odd">
+				<td>Cell</td>
+				<td>Cell</td>
+				<td>Cell</td>
+			</tr><tr class="even">
+				<td>Cell</td>
+				<td>Cell</td>
+				<td>Cell</td>
+			</tr><tr class="odd">
+				<td>Cell</td>
+				<td>Cell</td>
+				<td>Cell</td>
+			</tr><tr class="even">
+				<td>Cell</td>
+				<td>Cell</td>
+				<td>Cell</td>
+			</tr><tr class="odd">
+				<td>Cell</td>
+				<td>Cell</td>
+				<td>Cell</td>
+			</tr><tr class="even">
+				<td>Cell</td>
+				<td>Cell</td>
+				<td>Cell</td>
+			</tr><tr class="odd">
+				<td>Cell</td>
+				<td>Cell</td>
+				<td>Cell</td>
+			</tr>
+			</tbody>
+			</table>
+
+			<div class="hr"><hr></div>
+
+			<form action="?" method="get">
+				<fieldset>
+					<legend>Legend</legend>
+					<ul class="form">
+						<li class="required">
+							<label>Label</label>
+							<input type="text" placeholder="placeholder" required>
+						</li>
+						<li>
+							<label>Label</label>
+							<input type="email" value="email@example.com">
+						</li>
+						<li>
+							<label>Label</label>
+							<input type="tel" value="555-555-5555">
+						</li>
+						<li>
+							<label>Label</label>
+							<input type="url" value="http://www.nealgrosskopf.com">
+						</li>
+						<li>
+							<label>Label</label>
+							<input type="search" value="query">
+						</li>
+						<li>
+							<label>Label</label>
+							<input type="number" value="123456789">
+						</li>
+						<li>
+							<label>Label</label>
+							<input type="password" value="password">
+						</li>
+						<li>
+							<label>Label</label>
+							<textarea>textarea textarea textarea textarea textarea textarea textarea textarea textarea textarea textarea textarea textarea textarea textarea</textarea>
+						</li>
+						<li>
+							<label>Label</label>
+							<input type="file">
+							<div class="note">Note</div>
+						</li>
+						<li>
+							<label>Label</label>
+							<select>
+								<optgroup label="optgroup">
+									<option>option</option>
+									<option>option</option>
+									<option>option</option>
+								</optgroup>
+								<optgroup label="optgroup">
+									<option>option</option>
+									<option>option</option>
+									<option>option</option>
+								</optgroup>
+							</select>
+						</li>
+						<li>
+							<label>Label</label>
+							<select size="3">
+								<option>option</option>
+								<option>option</option>
+								<option>option</option>
+								<option>option</option>
+								<option>option</option>
+								<option>option</option>
+								<option>option</option>
+								<option>option</option>
+							</select>
+						</li>
+						<li>
+							<label class="full-line">Label Full Line Full Line Full Line Full Line Full Line Full Line Full Line</label>
+							<input type="checkbox"><label>Checkbox Label</label>
+							<input type="checkbox"><label>Checkbox Label</label>
+							<input type="checkbox"><label>Checkbox Label</label>
+							<input type="checkbox"><label>Checkbox Label</label>
+						</li>
+						<li>
+							<label>Label</label>
+							<ul>
+								<li><input type="radio"><label>Radio Label</label></li>
+								<li><input type="radio"><label>Radio Label</label></li>
+								<li><input type="radio"><label>Radio Label</label></li>
+								<li><input type="radio"><label>Radio Label</label></li>
+							</ul>
+						</li>
+						<li class="buttons">
+							<input type="button" value="Input Button">
+							<input type="reset" value="Reset">
+							<input type="submit" value="Submit">
+							<button type="submit">Button</button>
+						</li>
+					</ul>
+				</fieldset>
+			</form>
+		</div> <!-- .padding-all -->
+	</div> <!-- .container-inside -->
+</section> <!-- .content -->
+
+<footer class="footer"> 
+	<div class="container-inside">
+		<ul class="columns columns-3">
+			<li class="column-row">
+				<ul class="reset">
+					<li><a href="/">List Item</a></li>
+					<li><a href="/">List Item</a></li>
+					<li><a href="/">List Item</a></li>
+				</ul>
+			</li>
+			<li>
+				<ul class="reset">
+					<li><a href="/">List Item</a></li>
+					<li><a href="/">List Item</a></li>
+					<li><a href="/">List Item</a></li>
+				</ul>
+			</li>
+			<li>
+				<ul class="collapse social">
+					<li class="social-facebook"><a href="http://www.facebook.com/"><span>Facebook</span></a></li>
+					<li class="social-twitter"><a href="http://twitter.com/"><span>Twitter</span></a></li>
+					<li class="social-youtube"><a href="http://www.youtube.com/"><span>Youtube</span></a></li>
+					<li class="social-blog"><a href="#"><span>Blog</span></a></li>
+					<li class="social-google"><a href="http://plus.google.com/"><span>Google+</span></a></li>
+				</ul>
+				<div class="legal margin-top-small">&reg; Registered Trademark of COMPANY &copy; YEAR All Rights Reserved</div>
+			</li>
+		</ul>
+	</div>
+</footer> <!-- .footer -->
+
+</div> <!-- .container -->
+
+</body>
+</html>
